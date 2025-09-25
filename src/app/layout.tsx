@@ -18,7 +18,7 @@ export default function RootLayout({ children }: Children) {
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/logo"
+        <link rel="icon" href="/logo.svg" />
       </head>
       <body className={inter.className}>
         <QueryProvider>
