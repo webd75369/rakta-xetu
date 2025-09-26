@@ -1,6 +1,6 @@
+import { LoginButton } from "@/components/auth/login-button";
 import { Button } from "@/components/ui/button";
 import { HeartPulse } from "lucide-react";
-import Image from "next/image";
 
 export default function AuthPage() {
   return (
@@ -13,15 +13,7 @@ export default function AuthPage() {
         <p className="text-neutral-400 font-light text-center">
           Login to RaktaXetu to join the life-saving community
         </p>
-        <Button
-          variant="outline"
-          className="flex justify-center items-center gap-x-3 w-[200px]"
-        >
-          <Image src="/google.svg" height={18} width={18} alt="google" />
-          <span className="text-neutral-500 font-normal">
-            Login With Google
-          </span>
-        </Button>
+        <LoginButton />
       </div>
     </div>
   );

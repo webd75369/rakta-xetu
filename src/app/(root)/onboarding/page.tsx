@@ -1,7 +1,9 @@
+import { LogoutButton } from "@/components/auth/logout-button";
+
 export default function Onboarding() {
   return (
     <div>
-      <h1>Onboarding</h1>
+      <LogoutButton />
     </div>
   );
 }
