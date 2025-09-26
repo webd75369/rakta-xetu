@@ -3,7 +3,7 @@ import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { nextCookies } from "better-auth/next-js";
 
-const client = new MongoClient("mongodb://localhost:27017/database");
+const client = new MongoClient(process.env.DATABASE_URL!);
 const db = client.db();
 
 export const auth = betterAuth({
