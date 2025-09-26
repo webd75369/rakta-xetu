@@ -21,6 +21,12 @@ import {
 } from "@/components/ui/select";
 import { DateField, DateInput } from "@/components/ui/datefield-rac";
 import { Button } from "@/components/ui/button";
+import { useMutation } from "@tanstack/react-query";
+import { createUser } from "@/server/user";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { Loader } from "lucide-react";
 
 const bloodGroups = ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"];
 
@@ -34,6 +40,7 @@ const formSchema = z.object({
 });
 
 export function OnboardingForm() {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -46,9 +53,38 @@ export function OnboardingForm() {
     },
   });
 
+  const updateUser = async () => {
+    await authClient.updateUser({
+      // @ts-ignore
+      isUser: true,
+    });
+  };
+
+  const mutation = useMutation({
+    mutationKey: ["onboarding"],
+    mutationFn: async (values: z.infer<typeof formSchema>) => {
+      await createUser({
+        name: values.name,
+        phoneNumber: values.phone,
+        gender: values.gender,
+        bloodGroup: values.blood,
+        dateOfBirth: `${values.dob.day}-${values.dob.month}-${values.dob.year}`,
+        location: values.location,
+      });
+    },
+    onSuccess: () => {
+      updateUser();
+      form.reset();
+      router.push("/");
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error("Failed to submit the form");
+    },
+  });
+
   const onSubmit: (values: z.infer<typeof formSchema>) => void = (values) => {
-    // Handle form submission
-    console.log(values);
+    mutation.mutate(values);
   };
 
   return (
@@ -181,8 +217,17 @@ export function OnboardingForm() {
             </FormItem>
           )}
         />
-        <Button variant="secondary" className="w-full" type="submit">
-          Complete Onboarding
+        <Button
+          variant="secondary"
+          className="w-full"
+          type="submit"
+          disabled={mutation.isPending}
+        >
+          {mutation.isPending ? (
+            <Loader className="animate-spin" />
+          ) : (
+            "Complete Onboarding"
+          )}
         </Button>
       </form>
     </Form>
