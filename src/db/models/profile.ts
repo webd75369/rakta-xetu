@@ -17,7 +17,7 @@ const profileSchema = new mongoose.Schema<IProfile>(
     },
     gender: {
       type: String,
-      enum: ["male", "female"],
+      enum: ["male", "female", "other"],
       required: [true, "gender is required"],
     },
     dateOfBirth: {

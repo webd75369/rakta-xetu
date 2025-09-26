@@ -1,7 +1,8 @@
-import type { NextConfig } from "next";
+import { withHydrationOverlay } from "@builder.io/react-hydration-overlay/next";
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
+/** @type {import('next').NextConfig} */
+const nextConfig = {};
 
-export default nextConfig;
+export default withHydrationOverlay({
+  appRootSelector: "main",
+})(nextConfig);
