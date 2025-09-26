@@ -8,7 +8,7 @@ interface IProfile {
   dateOfBirth: string;
   location: string;
   bloodGroup: string;
-  userId: mongoose.Schema.Types.ObjectId;
+  userId?: mongoose.Schema.Types.ObjectId;
   createdAt?: Date;
   updatedAt?: Date;
 }
