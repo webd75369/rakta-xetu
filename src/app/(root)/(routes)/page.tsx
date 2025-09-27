@@ -1,9 +1,7 @@
-import { LogoutButton } from "@/components/auth/logout-button";
-
 export default function Home() {
   return (
     <div>
-      <LogoutButton />
+      <h1 className="text-neutral-500 font-light">RaktaXetu</h1>
     </div>
   );
 }
