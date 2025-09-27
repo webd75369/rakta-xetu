@@ -72,8 +72,8 @@ export function OnboardingForm() {
         location: values.location,
       });
     },
-    onSuccess: () => {
-      updateUser();
+    onSuccess: async () => {
+      await updateUser();
       form.reset();
       router.push("/");
     },
