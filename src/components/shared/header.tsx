@@ -2,6 +2,7 @@ import { HeartPulse } from "lucide-react";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { LogoutButton } from "../auth/logout-button";
+import { Menu } from "./menu";
 
 export function Header() {
   return (
@@ -14,7 +15,10 @@ export function Header() {
           RaktaXetu
         </p>
       </Link>
-      <LogoutButton />
+      <div className="flex justify-center items-center gap-x-3">
+        <Menu />
+        <LogoutButton />
+      </div>
     </header>
   );
 }
