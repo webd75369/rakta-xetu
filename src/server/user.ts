@@ -14,9 +14,10 @@ export const createUser = async (items: IProfile) => {
       throw new Error("user is not authenticated");
     }
     await connectToDb();
+    const profile = await Profile.findOne({ userId: session.user.id });
+    if (profile) throw new Error("profile already exists");
     const result = await Profile.create({ ...items, userId: session.user.id });
     return {
-      success: true,
       profileId: result._id.toString(),
     };
   } catch (error) {

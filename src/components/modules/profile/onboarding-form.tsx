@@ -128,7 +128,7 @@ export function OnboardingForm() {
             </FormItem>
           )}
         />
-        <div className="w-full flex justify-center items-center gap-x-2">
+        <div className="w-full flex-col gap-y-5 sm:flex-row flex justify-center items-center gap-x-2">
           <FormField
             control={form.control}
             name="gender"
