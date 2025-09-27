@@ -13,4 +13,20 @@ interface IProfile {
   updatedAt?: Date;
 }
 
-export { IProfile };
+interface IBlood {
+  _id?: mongoose.Types.ObjectId;
+  patientName: string;
+  gender: string;
+  phoneNumber: string;
+  age: number;
+  units: number;
+  location: string;
+  isCritical: boolean;
+  isAccepted: boolean;
+  notes: string;
+  userId?: mongoose.Schema.Types.ObjectId;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export { IProfile, IBlood };
