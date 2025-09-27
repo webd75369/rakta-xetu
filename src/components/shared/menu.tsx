@@ -27,7 +27,7 @@ export function Menu() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel className="text-neutral-700 font-normal">
+        <DropdownMenuLabel className="text-neutral-600 font-normal">
           {!session ? (
             <Skeleton className="h-3 w-[160px]" />
           ) : (
@@ -42,7 +42,7 @@ export function Menu() {
               key={item.path}
               className={cn(
                 "text-neutral-500 font-light cursor-pointer",
-                isActive && "text-rose-500"
+                isActive && "text-rose-500 focus:text-rose-700 focus:bg-rose-50"
               )}
               asChild
             >
