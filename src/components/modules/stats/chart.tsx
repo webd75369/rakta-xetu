@@ -119,6 +119,26 @@ export function ChartComponent() {
           </div>
         </div>
       </div>
+      <div className="sm:hidden my-6 flex justify-center items-center gap-x-16">
+        <div className="flex flex-col justify-center items-end flex-1">
+          <div className="flex flex-col justify-center items-center gap-y-2">
+            <p className="text-lg text-neutral-500">2 Units</p>
+            <div className="flex justify-center items-center gap-x-2">
+              <p className="text-sm font-light text-neutral-400">Donated</p>
+              <div className="h-3 w-3 rounded bg-[var(--chart-1)]" />
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-col justify-center items-start flex-1">
+          <div className="flex flex-col justify-center items-center gap-y-2">
+            <p className="text-lg text-neutral-500">1 Unit</p>
+            <div className="flex justify-center items-center gap-x-2">
+              <div className="h-3 w-3 rounded bg-[var(--chart-2)]" />
+              <p className="text-sm font-light text-neutral-400">Requested</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
