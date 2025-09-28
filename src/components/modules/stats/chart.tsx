@@ -6,30 +6,42 @@ import {
   RadialBar,
   RadialBarChart,
 } from "recharts";
-import { ChartConfig, ChartContainer } from "@/components/ui/chart";
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
 
-const chartData = [{ month: "january", desktop: 1260, mobile: 570 }];
+const chartData = [{ donated: 2, requested: 1 }];
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
+  donated: {
+    label: "Donated",
     color: "var(--chart-1)",
   },
-  mobile: {
-    label: "Mobile",
+  requested: {
+    label: "Requested",
     color: "var(--chart-2)",
   },
 } satisfies ChartConfig;
 
 export function ChartComponent() {
-  const totalVisitors = chartData[0].desktop + chartData[0].mobile;
-
   return (
     <div className="my-6">
-      <div className="">
+      <div className="flex justify-center items-center gap-x-12">
+        <div className="flex flex-col max-sm:hidden justify-center items-end flex-1">
+          <div className="flex flex-col justify-center items-center gap-y-2">
+            <p className="text-lg text-neutral-500">2 Units</p>
+            <div className="flex justify-center items-center gap-x-2">
+              <p className="text-sm font-light text-neutral-400">Donated</p>
+              <div className="h-3 w-3 rounded bg-[var(--chart-1)]" />
+            </div>
+          </div>
+        </div>
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[250px]"
+          className="aspect-square h-[200px]"
         >
           <RadialBarChart
             data={chartData}
@@ -38,6 +50,10 @@ export function ChartComponent() {
             innerRadius={80}
             outerRadius={110}
           >
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent hideLabel />}
+            />
             <PolarGrid
               gridType="circle"
               radialLines={false}
@@ -48,13 +64,13 @@ export function ChartComponent() {
 
             {/* Radial bars for each data key */}
             <RadialBar
-              dataKey="desktop"
+              dataKey="donated"
               stackId="a"
               cornerRadius={10}
               fill="var(--chart-1)"
             />
             <RadialBar
-              dataKey="mobile"
+              dataKey="requested"
               stackId="a"
               cornerRadius={10}
               fill="var(--chart-2)"
@@ -74,16 +90,16 @@ export function ChartComponent() {
                         <tspan
                           x={viewBox.cx}
                           y={viewBox.cy}
-                          className="fill-foreground text-4xl font-bold"
+                          className="text-4xl font-normal fill-neutral-600"
                         >
-                          {totalVisitors.toLocaleString()}
+                          2
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
-                          className="fill-muted-foreground"
+                          className="fill-neutral-500 font-light"
                         >
-                          Visitors
+                          Lives Affected
                         </tspan>
                       </text>
                     );
@@ -93,6 +109,15 @@ export function ChartComponent() {
             </PolarRadiusAxis>
           </RadialBarChart>
         </ChartContainer>
+        <div className="flex flex-col max-sm:hidden justify-center items-start flex-1">
+          <div className="flex flex-col justify-center items-center gap-y-2">
+            <p className="text-lg text-neutral-500">1 Unit</p>
+            <div className="flex justify-center items-center gap-x-2">
+              <div className="h-3 w-3 rounded bg-[var(--chart-2)]" />
+              <p className="text-sm font-light text-neutral-400">Requested</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
