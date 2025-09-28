@@ -3,6 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Switch } from "@/components/ui/switch";
 import { authClient } from "@/lib/auth-client";
 import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 export function DonationStatus() {
   const { data: session } = authClient.useSession();
@@ -12,6 +13,13 @@ export function DonationStatus() {
       await authClient.updateUser({
         isDonor: !isDonor,
       } as any);
+    },
+    onSuccess: () => {
+      toast.success("Status Updated Successfully");
+    },
+    onError: (error) => {
+      console.log(error);
+      toast.error("Some Error Occurred");
     },
   });
 
