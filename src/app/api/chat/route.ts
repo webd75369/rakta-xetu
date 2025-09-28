@@ -1,9 +1,44 @@
+import { auth } from "@/lib/auth";
 import { google } from "@ai-sdk/google";
 import { streamText } from "ai";
+import { headers } from "next/headers";
+import { NextResponse } from "next/server";
+import arcjet, { tokenBucket } from "@arcjet/next";
 
 export const maxDuration = 30;
 
+const aj = arcjet({
+  key: process.env.ARCJET_KEY!,
+  rules: [
+    tokenBucket({
+      mode: "LIVE",
+      characteristics: ["ip.src"],
+      refillRate: 5,
+      interval: 10,
+      capacity: 10,
+    }),
+  ],
+});
+
 export async function POST(req: Request) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  if (!session) {
+    return NextResponse.json(
+      { error: "the user is not authenticated" },
+      { status: 401 }
+    );
+  }
+
+  const decision = await aj.protect(req, { requested: 2 });
+  if (decision.isDenied()) {
+    return NextResponse.json(
+      { error: "Too Many Requests", reason: decision.reason },
+      { status: 429 }
+    );
+  }
+  
   const { messages } = await req.json();
 
   const result = streamText({
