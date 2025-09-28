@@ -1,3 +1,4 @@
+import { ChartComponent } from "@/components/modules/stats/chart";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getProfileInfo } from "@/server/profile";
 
@@ -25,6 +26,7 @@ export default async function Profile() {
           </p>
         </div>
       </div>
+      <ChartComponent />
     </div>
   );
 }
