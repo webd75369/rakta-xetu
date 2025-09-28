@@ -12,7 +12,7 @@ const aj = arcjet({
   rules: [
     tokenBucket({
       mode: "LIVE",
-      characteristics: ["ip.src"],
+      characteristics: ["userId"],
       refillRate: 5,
       interval: 10,
       capacity: 10,
@@ -30,15 +30,15 @@ export async function POST(req: Request) {
       { status: 401 }
     );
   }
-
-  const decision = await aj.protect(req, { requested: 2 });
+  const userId = session.user.id;
+  const decision = await aj.protect(req, { userId, requested: 5 });
   if (decision.isDenied()) {
     return NextResponse.json(
       { error: "Too Many Requests", reason: decision.reason },
       { status: 429 }
     );
   }
-  
+
   const { messages } = await req.json();
 
   const result = streamText({
