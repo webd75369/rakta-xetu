@@ -25,7 +25,7 @@ export function ChartComponent() {
   const totalVisitors = chartData[0].desktop + chartData[0].mobile;
 
   return (
-    <div className="mb-6 mt-12">
+    <div className="my-6">
       <div className="">
         <ChartContainer
           config={chartConfig}
