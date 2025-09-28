@@ -12,8 +12,9 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-
-const chartData = [{ donated: 2, requested: 1 }];
+import { useQuery } from "@tanstack/react-query";
+import { chartInfo } from "@/server/profile";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const chartConfig = {
   donated: {
@@ -27,12 +28,33 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function ChartComponent() {
+  const query = useQuery({
+    queryKey: ["chart"],
+    queryFn: async () => {
+      const result = await chartInfo();
+      console.log(result);
+      return result;
+    },
+  });
+  const chartData = [
+    {
+      donated: query.data?.totalDonations ?? 0,
+      requested: query.data?.totalRequests ?? 0,
+    },
+  ];
+
   return (
     <div className="my-6">
       <div className="flex justify-center items-center gap-x-12">
         <div className="flex flex-col max-sm:hidden justify-center items-end flex-1">
           <div className="flex flex-col justify-center items-center gap-y-2">
-            <p className="text-lg text-neutral-500">2 Units</p>
+            {query.isLoading ? (
+              <Skeleton className="w-[60px] h-3" />
+            ) : (
+              <p className="text-lg text-neutral-500">
+                {query.data?.totalDonations} Units
+              </p>
+            )}
             <div className="flex justify-center items-center gap-x-2">
               <p className="text-sm font-light text-neutral-400">Donated</p>
               <div className="h-3 w-3 rounded bg-[var(--chart-1)]" />
@@ -92,7 +114,7 @@ export function ChartComponent() {
                           y={viewBox.cy}
                           className="text-4xl font-normal fill-neutral-600"
                         >
-                          2
+                          {query.data?.totalLivesAffected}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
@@ -111,7 +133,13 @@ export function ChartComponent() {
         </ChartContainer>
         <div className="flex flex-col max-sm:hidden justify-center items-start flex-1">
           <div className="flex flex-col justify-center items-center gap-y-2">
-            <p className="text-lg text-neutral-500">1 Unit</p>
+            {query.isLoading ? (
+              <Skeleton className="w-[60px] h-3" />
+            ) : (
+              <p className="text-lg text-neutral-500">
+                {query.data?.totalRequests} Units
+              </p>
+            )}
             <div className="flex justify-center items-center gap-x-2">
               <div className="h-3 w-3 rounded bg-[var(--chart-2)]" />
               <p className="text-sm font-light text-neutral-400">Requested</p>
@@ -122,7 +150,13 @@ export function ChartComponent() {
       <div className="sm:hidden my-6 flex justify-center items-center gap-x-16">
         <div className="flex flex-col justify-center items-end flex-1">
           <div className="flex flex-col justify-center items-center gap-y-2">
-            <p className="text-lg text-neutral-500">2 Units</p>
+            {query.isLoading ? (
+              <Skeleton className="w-[60px] h-3" />
+            ) : (
+              <p className="text-lg text-neutral-500">
+                {query.data?.totalDonations} Units
+              </p>
+            )}
             <div className="flex justify-center items-center gap-x-2">
               <p className="text-sm font-light text-neutral-400">Donated</p>
               <div className="h-3 w-3 rounded bg-[var(--chart-1)]" />
@@ -131,7 +165,13 @@ export function ChartComponent() {
         </div>
         <div className="flex flex-col justify-center items-start flex-1">
           <div className="flex flex-col justify-center items-center gap-y-2">
-            <p className="text-lg text-neutral-500">1 Unit</p>
+            {query.isLoading ? (
+              <Skeleton className="w-[60px] h-3" />
+            ) : (
+              <p className="text-lg text-neutral-500">
+                {query.data?.totalRequests} Units
+              </p>
+            )}
             <div className="flex justify-center items-center gap-x-2">
               <div className="h-3 w-3 rounded bg-[var(--chart-2)]" />
               <p className="text-sm font-light text-neutral-400">Requested</p>
