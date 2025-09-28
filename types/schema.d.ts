@@ -24,6 +24,7 @@ interface IBlood {
   isCritical: boolean;
   isAccepted: boolean;
   notes: string;
+  acceptedBy?: mongoose.Schema.Types.ObjectId;
   userId?: mongoose.Schema.Types.ObjectId;
   createdAt?: Date;
   updatedAt?: Date;

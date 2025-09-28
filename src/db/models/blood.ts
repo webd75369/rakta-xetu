@@ -6,7 +6,6 @@ const BloodSchema = new Schema<IBlood>(
     patientName: {
       type: String,
       required: [true, "Patient name is required"],
-      trim: true,
     },
     gender: {
       type: String,
@@ -31,7 +30,6 @@ const BloodSchema = new Schema<IBlood>(
     location: {
       type: String,
       required: [true, "Location is required"],
-      trim: true,
     },
     isCritical: {
       type: Boolean,
@@ -43,16 +41,18 @@ const BloodSchema = new Schema<IBlood>(
     },
     notes: {
       type: String,
-      trim: true,
+      required: true,
+    },
+    acceptedBy: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
     },
     userId: {
       type: Schema.Types.ObjectId,
       ref: "user",
     },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
 export const Blood =
