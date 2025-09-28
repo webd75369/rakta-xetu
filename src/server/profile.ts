@@ -38,30 +38,32 @@ export const chartInfo = async () => {
       throw new Error("the user is not authenticated");
     }
     await connectToDb();
-    const totalUnitsDonated = await Blood.find({
+    const donation = await Blood.find({
       isAccepted: true,
       acceptedBy: session.user.id,
     });
-    const totalUnitsRequested = await Blood.find({
-      isAccepted: false,
-      userId: session.user.id,
-    });
-    const totalLivesAffected = await Blood.find({ userId: session.user.id });
+    const request = await Blood.find({ userId: session.user.id });
+    const totalDonations = donation.reduce(
+      (acc, curr) => acc + (curr.units || 0),
+      0
+    );
+    const totalRequests = request.reduce(
+      (acc, curr) => acc + (curr.units || 0),
+      0
+    );
+    const totalLivesAffected = donation.length + request.length;
     return {
-      totalUnitsDonated: totalUnitsDonated.reduce((acc, curr) => acc + curr, 0),
-      totalUnitsRequested: totalUnitsRequested.reduce(
-        (acc, curr) => acc + curr,
-        0
-      ),
-      totalLivesAffected: totalLivesAffected.reduce(
-        (acc, curr) => acc + curr,
-        0
-      ),
+      totalDonations,
+      totalRequests,
+      totalLivesAffected,
+      success: true,
     };
   } catch (error) {
     console.error(error);
     return {
+      success: false,
       message: "failed to get chart info",
+      error,
     };
   }
 };
