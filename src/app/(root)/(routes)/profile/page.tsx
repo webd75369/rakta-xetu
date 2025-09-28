@@ -1,3 +1,4 @@
+import { DonationStatus } from "@/components/modules/profile/donation-status";
 import { ChartComponent } from "@/components/modules/stats/chart";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getProfileInfo } from "@/server/profile";
@@ -27,6 +28,7 @@ export default async function Profile() {
         </div>
       </div>
       <ChartComponent />
+      <DonationStatus />
     </div>
   );
 }
