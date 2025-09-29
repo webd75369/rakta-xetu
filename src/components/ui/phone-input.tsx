@@ -110,7 +110,7 @@ const CountrySelect = ({
           />
           <ChevronsUpDown
             className={cn(
-              "-mr-2 size-4 opacity-50",
+              "-mr-2 size-4 opacity-50 text-neutral-500 font-light",
               disabled ? "hidden" : "opacity-100"
             )}
           />
@@ -119,6 +119,7 @@ const CountrySelect = ({
       <PopoverContent className="w-[300px] p-0">
         <Command>
           <CommandInput
+            className="placeholder:text-neutral-500 placeholder:font-light text-neutral-500 font-light"
             value={searchValue}
             onValueChange={(value) => {
               setSearchValue(value);
@@ -179,9 +180,11 @@ const CountrySelectOption = ({
   };
 
   return (
-    <CommandItem className="gap-2" onSelect={handleSelect}>
+    <CommandItem className="gap-2 cursor-pointer" onSelect={handleSelect}>
       <FlagComponent country={country} countryName={countryName} />
-      <span className="flex-1 text-sm">{countryName}</span>
+      <span className="flex-1 text-sm font-light text-neutral-500">
+        {countryName}
+      </span>
       <span className="text-sm text-foreground/50">{`+${RPNInput.getCountryCallingCode(
         country
       )}`}</span>

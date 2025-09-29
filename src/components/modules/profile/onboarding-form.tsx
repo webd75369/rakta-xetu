@@ -98,7 +98,7 @@ export function OnboardingForm() {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-neutral-600 font-light">
+              <FormLabel className="text-neutral-500 font-light">
                 Enter your name
               </FormLabel>
               <FormControl>
@@ -113,7 +113,7 @@ export function OnboardingForm() {
           name="phone"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-neutral-600 font-light">
+              <FormLabel className="text-neutral-500 font-light">
                 Enter your phone number
               </FormLabel>
               <FormControl>
@@ -134,7 +134,7 @@ export function OnboardingForm() {
             name="gender"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel className="text-neutral-600 font-light">
+                <FormLabel className="text-neutral-500 font-light">
                   Select your gender
                 </FormLabel>
                 <FormControl>
@@ -158,7 +158,7 @@ export function OnboardingForm() {
             name="blood"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel className="text-neutral-600 font-light">
+                <FormLabel className="text-neutral-500 font-light">
                   Select your Blood Group
                 </FormLabel>
                 <FormControl>
@@ -185,7 +185,7 @@ export function OnboardingForm() {
           name="dob"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-neutral-600 font-light">
+              <FormLabel className="text-neutral-500 font-light">
                 Enter your Date Of Birth
               </FormLabel>
               <FormControl>
@@ -207,7 +207,7 @@ export function OnboardingForm() {
           name="location"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-neutral-600 font-light">
+              <FormLabel className="text-neutral-500 font-light">
                 Enter your address
               </FormLabel>
               <FormControl>
