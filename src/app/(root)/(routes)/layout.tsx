@@ -11,9 +11,9 @@ export default async function Layout({ children }: Children) {
     redirect("/onboarding");
   }
   return (
-    <section className="max-w-4xl mx-auto">
+    <section className="h-screen min-h-screen flex flex-col max-w-4xl mx-auto">
       <Header />
-      <div className="p-4">{children}</div>
+      <div className="p-4 flex-1 min-h-0">{children}</div>
     </section>
   );
 }
