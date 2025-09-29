@@ -47,7 +47,7 @@ type MessageInputProps =
   | MessageInputWithAttachmentsProps;
 
 export function MessageInput({
-  placeholder = "Ask AI...",
+  placeholder = "Ask Something",
   className,
   onKeyDown: onKeyDownProp,
   submitOnEnter = true,
@@ -206,8 +206,8 @@ export function MessageInput({
         onStopRecording={stopRecording}
       />
 
-      <div className="relative flex w-full items-center space-x-2">
-        <div className="relative flex-1">
+      <div className="relative flex w-full items-center space-x-2 pt-2">
+        <div className="relative w-full min-w-0">
           <textarea
             aria-label="Write your prompt here"
             placeholder={placeholder}
@@ -215,7 +215,7 @@ export function MessageInput({
             onPaste={onPaste}
             onKeyDown={onKeyDown}
             className={cn(
-              "z-10 w-full grow resize-none rounded-xl border border-input bg-background p-3 pr-24 text-sm ring-offset-background transition-[border] placeholder:text-muted-foreground focus-visible:border-primary focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+              "z-10 w-full grow shadow-xs resize-none rounded-lg border border-input bg-background p-3 pr-24 text-sm ring-offset-background transition-[border] placeholder:text-muted-foreground placeholder:font-light focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 text-neutral-500 font-light overflow-x-hidden break-words whitespace-pre-wrap min-w-0",
               showFileList && "pb-16",
               className
             )}
@@ -225,13 +225,13 @@ export function MessageInput({
           />
 
           {props.allowAttachments && (
-            <div className="absolute inset-x-3 bottom-0 z-20 overflow-x-scroll py-3">
+            <div className="absolute inset-x-3 bottom-0 z-20 overflow-x-hidden py-3">
               <div className="flex space-x-3">
                 <AnimatePresence mode="popLayout">
-                  {props.files?.map((file) => {
+                  {props.files?.map((file, index) => {
                     return (
                       <FilePreview
-                        key={file.name + String(file.lastModified)}
+                        key={index}
                         file={file}
                         onRemove={() => {
                           props.setFiles((files) => {
@@ -254,7 +254,7 @@ export function MessageInput({
         </div>
       </div>
 
-      <div className="absolute right-3 top-3 z-20 flex gap-2">
+      <div className="absolute right-3 top-5 z-20 flex gap-2">
         {props.allowAttachments && (
           <Button
             type="button"
@@ -267,7 +267,7 @@ export function MessageInput({
               addFiles(files);
             }}
           >
-            <Paperclip className="h-4 w-4" />
+            <Paperclip className="h-4 w-4 text-neutral-500" />
           </Button>
         )}
         {isSpeechSupported && (
@@ -286,6 +286,7 @@ export function MessageInput({
           <Button
             type="button"
             size="icon"
+            variant="secondary"
             className="h-8 w-8"
             aria-label="Stop generating"
             onClick={stop}
@@ -296,6 +297,7 @@ export function MessageInput({
           <Button
             type="submit"
             size="icon"
+            variant="secondary"
             className="h-8 w-8 transition-opacity"
             aria-label="Send message"
             disabled={props.value === "" || isGenerating}

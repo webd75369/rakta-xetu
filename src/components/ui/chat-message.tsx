@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useMemo, useState } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { motion } from "framer-motion";
@@ -19,8 +18,8 @@ const chatBubbleVariants = cva(
   {
     variants: {
       isUser: {
-        true: "bg-primary text-primary-foreground",
-        false: "bg-muted text-foreground",
+        true: "bg-rose-500 text-primary-foreground font-light border border-rose-500 shadow-xs",
+        false: "text-neutral-500 font-light border shadow-xs",
       },
       animation: {
         none: "",

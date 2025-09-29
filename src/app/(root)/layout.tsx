@@ -9,5 +9,5 @@ export default async function Layout({ children }: Children) {
   if (!session) {
     redirect("/auth");
   }
-  return <section>{children}</section>;
+  return <section className="h-full">{children}</section>;
 }

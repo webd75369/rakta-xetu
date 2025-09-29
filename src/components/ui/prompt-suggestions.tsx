@@ -11,15 +11,17 @@ export function PromptSuggestions({
 }: PromptSuggestionsProps) {
   return (
     <div className="space-y-6">
-      <h2 className="text-center text-2xl font-bold">{label}</h2>
-      <div className="flex gap-6 text-sm">
+      <h2 className="text-start text-2xl font-light text-neutral-500">
+        {label}
+      </h2>
+      <div className="flex gap-6 text-sm flex-wrap max-[525px]:flex-col">
         {suggestions.map((suggestion) => (
           <button
             key={suggestion}
             onClick={() => append({ role: "user", content: suggestion })}
-            className="h-max flex-1 rounded-xl border bg-background p-4 hover:bg-muted"
+            className="h-max cursor-pointer flex-1 rounded-lg shadow-xs border bg-background p-3 hover:bg-neutral-50"
           >
-            <p>{suggestion}</p>
+            <p className="text-neutral-500 font-light">{suggestion}</p>
           </button>
         ))}
       </div>

@@ -1,5 +1,4 @@
 "use client";
-
 import {
   forwardRef,
   useCallback,
@@ -192,10 +191,10 @@ export function Chat({
   );
 
   return (
-    <ChatContainer className={className}>
+    <ChatContainer className={cn(className, "")}>
       {isEmpty && append && suggestions ? (
         <PromptSuggestions
-          label="Try these prompts ✨"
+          label="Chat with our AI Chatbot"
           append={append}
           suggestions={suggestions}
         />
@@ -210,9 +209,8 @@ export function Chat({
           />
         </ChatMessages>
       ) : null}
-
       <ChatForm
-        className="mt-auto"
+        className="w-full"
         isPending={isGenerating || isTyping}
         handleSubmit={handleSubmit}
       >
@@ -250,7 +248,7 @@ export function ChatMessages({
 
   return (
     <div
-      className="grid grid-cols-1 overflow-y-auto pb-4"
+      className="grid grid-cols-1 overflow-y-auto pb-4 no-scrollbar"
       ref={containerRef}
       onScroll={handleScroll}
       onTouchStart={handleTouchStart}
@@ -263,7 +261,7 @@ export function ChatMessages({
         <div className="pointer-events-none flex flex-1 items-end justify-end [grid-column:1/1] [grid-row:1/1]">
           <div className="sticky bottom-0 left-0 flex w-full justify-end">
             <Button
-              onClick={scrollToBottom}
+              onClick={() => scrollToBottom(true)}
               className="pointer-events-auto h-8 w-8 rounded-full ease-in-out animate-in fade-in-0 slide-in-from-bottom-1"
               size="icon"
               variant="ghost"
@@ -284,7 +282,10 @@ export const ChatContainer = forwardRef<
   return (
     <div
       ref={ref}
-      className={cn("grid max-h-full w-full grid-rows-[1fr_auto]", className)}
+      className={cn(
+        "grid max-h-full h-full w-full min-h-0 grid-rows-[1fr_auto]",
+        className
+      )}
       {...props}
     />
   );
