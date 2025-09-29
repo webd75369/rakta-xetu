@@ -185,7 +185,7 @@ const CountrySelectOption = ({
       <span className="flex-1 text-sm font-light text-neutral-500">
         {countryName}
       </span>
-      <span className="text-sm text-foreground/50">{`+${RPNInput.getCountryCallingCode(
+      <span className="text-sm text-neutral-500 font-light">{`+${RPNInput.getCountryCallingCode(
         country
       )}`}</span>
       <CheckIcon
