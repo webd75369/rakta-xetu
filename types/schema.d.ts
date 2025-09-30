@@ -30,4 +30,15 @@ interface IBlood {
   updatedAt?: Date;
 }
 
-export { IProfile, IBlood };
+interface IDonation {
+  _id?: mongoose.Types.ObjectId;
+  amount: string;
+  orderId: string;
+  status: "pending" | "paid";
+  currency: string;
+  userId?: mongoose.Schema.Types.ObjectId;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export { IProfile, IBlood, IDonation };
