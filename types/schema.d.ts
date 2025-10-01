@@ -32,7 +32,7 @@ interface IBlood {
 
 interface IDonation {
   _id?: mongoose.Types.ObjectId;
-  amount: string;
+  amount: number;
   orderId: string;
   status: "pending" | "paid";
   currency: string;

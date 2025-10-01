@@ -4,7 +4,7 @@ import { IDonation } from "../../../types/schema";
 const donationSchema = new mongoose.Schema<IDonation>(
   {
     amount: {
-      type: String,
+      type: Number,
       required: true,
     },
     orderId: {
