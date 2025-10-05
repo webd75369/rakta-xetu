@@ -41,4 +41,17 @@ interface IDonation {
   updatedAt?: Date;
 }
 
+interface ISchedule {
+  _id?: mongoose.Types.ObjectId;
+  hospitalName: string;
+  startAt: Date;
+  endAt: Date;
+  googleEventId: string;
+  confirmationEmailSent: boolean;
+  reminderEmailSent: boolean;
+  userId?: mongoose.Schema.Types.ObjectId;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
 export { IProfile, IBlood, IDonation };
