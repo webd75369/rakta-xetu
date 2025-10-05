@@ -54,4 +54,4 @@ interface ISchedule {
   updatedAt?: Date;
 }
 
-export { IProfile, IBlood, IDonation };
+export { IProfile, IBlood, IDonation, ISchedule };
