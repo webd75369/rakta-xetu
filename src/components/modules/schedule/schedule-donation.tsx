@@ -85,15 +85,15 @@ export function ScheduleDonation() {
       const response = await saveEvent(hospitalName, donationTime);
       if (response?.hasScope === false) {
         setOpen(true);
-        return;
+        return response?.hasScope;
       }
     },
     onError: (error) => {
       console.log(error);
       toast.error("Some Error Occurred");
     },
-    onSuccess: (data: any) => {
-      if (data?.hasScope === false) return;
+    onSuccess: (data) => {
+      if (data === false) return;
       toast.success("Scheduled your event successfully");
     },
   });
