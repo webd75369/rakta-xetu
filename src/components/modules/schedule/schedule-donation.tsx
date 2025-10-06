@@ -70,7 +70,6 @@ const formSchema = z.object({
 });
 
 export function ScheduleDonation() {
-  const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -81,10 +80,10 @@ export function ScheduleDonation() {
   });
 
   const mutation = useMutation({
-    mutationKey: ["schedule-donation"],
-    mutationFn: async (hospitalName: string, donationTime: any) => {
+    mutationFn: async (vars: { hospitalName: string; donationTime: any }) => {
+      const { hospitalName, donationTime } = vars;
       const response = await saveEvent(hospitalName, donationTime);
-      if (response?.hasScope) {
+      if (response?.hasScope === false) {
         setOpen(true);
         return;
       }
@@ -93,7 +92,8 @@ export function ScheduleDonation() {
       console.log(error);
       toast.error("Some Error Occurred");
     },
-    onSuccess: () => {
+    onSuccess: (data: any) => {
+      if (data?.hasScope === false) return;
       toast.success("Scheduled your event successfully");
     },
   });
@@ -106,12 +106,15 @@ export function ScheduleDonation() {
       toast.error("No valid donationTime provided");
       return;
     }
-    mutation.mutate(values.hospitalName, scheduled as any);
+    mutation.mutate({
+      hospitalName: values.hospitalName,
+      donationTime: scheduled as any,
+    });
   };
 
   return (
     <div className="my-4">
-      <Dialog open={openDialog} onOpenChange={setOpenDialog}>
+      <Dialog>
         <DialogTrigger asChild>
           <Button
             className="flex justify-center items-center gap-x-2"

@@ -18,18 +18,13 @@ export const saveEvent = async (hospitalName: string, donationTime: any) => {
     const hasScope = await checkScope(accessToken);
     if (!hasScope) {
       return {
-        hasScope: false
-      }
+        hasScope: false,
+      };
     }
-
-    const checkTime = donationTime > new Date();
-    if (!checkTime) throw new Error("time must be in the future");
-
     const startTime = new Date(donationTime).toISOString();
     const endTime = new Date(
       new Date(donationTime).getTime() + 60 * 60 * 1000
     ).toISOString();
-    
     const event = {
       summary: `Blood donation at ${hospitalName}`,
       description: `Scheduled blood donation at ${hospitalName}`,

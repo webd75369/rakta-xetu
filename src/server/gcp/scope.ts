@@ -13,12 +13,12 @@ export const checkScope = async (accessToken: IToken) => {
     if (!accessToken) throw new Error("access token is not present");
     const response = await axios.get(
       "https://www.googleapis.com/oauth2/v1/tokeninfo",
-      { params: { access_token: accessToken } }
+      { params: { access_token: accessToken.accessToken } }
     );
     const data = response.data;
-    const scopes = data.scopes?.split(" ") ?? [];
+    const scopes = data.scope?.split(" ") ?? [];
     const calendarScope = "https://www.googleapis.com/auth/calendar";
-    const hasScope = scopes.include(calendarScope);
+    const hasScope = scopes.includes(calendarScope);
     return hasScope;
   } catch (error) {
     console.error(error);
