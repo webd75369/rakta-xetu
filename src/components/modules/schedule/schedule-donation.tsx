@@ -44,16 +44,6 @@ function dateValueToDate(val: DateValueShape | null | undefined): Date | null {
   return new Date(year, month - 1, day, hour ?? 0, minute ?? 0, 0, 0);
 }
 
-function dateToDateValue(d: Date): DateValueShape {
-  return {
-    year: d.getFullYear(),
-    month: d.getMonth() + 1,
-    day: d.getDate(),
-    hour: d.getHours(),
-    minute: d.getMinutes(),
-  };
-}
-
 const formSchema = z.object({
   hospitalName: z.string().min(1, { message: "Hospital name is required" }),
   donationTime: z

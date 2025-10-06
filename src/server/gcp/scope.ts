@@ -1,7 +1,14 @@
 "use server";
 import axios from "axios";
 
-export const checkScope = async (accessToken: string) => {
+interface IToken {
+  accessToken: string;
+  accessTokenExpiresAt: Date | undefined;
+  scopes: string[];
+  idToken: string | undefined;
+}
+
+export const checkScope = async (accessToken: IToken) => {
   try {
     if (!accessToken) throw new Error("access token is not present");
     const response = await axios.get(
