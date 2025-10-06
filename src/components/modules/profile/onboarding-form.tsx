@@ -22,7 +22,7 @@ import {
 import { DateField, DateInput } from "@/components/ui/datefield-rac";
 import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
-import { createUser } from "@/server/user";
+import { createUser } from "@/server/user/user";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";

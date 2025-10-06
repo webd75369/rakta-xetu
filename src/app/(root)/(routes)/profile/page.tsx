@@ -2,7 +2,7 @@ import { DonationStatus } from "@/components/modules/profile/donation-status";
 import { ChartComponent } from "@/components/modules/stats/chart";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getProfileInfo } from "@/server/profile";
+import { getProfileInfo } from "@/server/user/profile";
 import { AlertTriangle, BrainCircuit, Coins } from "lucide-react";
 import Link from "next/link";
 
