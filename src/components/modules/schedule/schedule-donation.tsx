@@ -70,6 +70,7 @@ const formSchema = z.object({
 });
 
 export function ScheduleDonation() {
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -95,6 +96,7 @@ export function ScheduleDonation() {
     onSuccess: (data) => {
       if (data === false) return;
       toast.success("Scheduled your event successfully");
+      setOpenDialog(false);
     },
   });
 
@@ -114,7 +116,7 @@ export function ScheduleDonation() {
 
   return (
     <div className="my-4">
-      <Dialog>
+      <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogTrigger asChild>
           <Button
             className="flex justify-center items-center gap-x-2"
