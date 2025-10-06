@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { Loader, Plus } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -23,6 +23,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { DateField, DateInput } from "@/components/ui/datefield-rac";
+import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
+import { saveEvent } from "@/server/gcp/calendar";
+import { toast } from "sonner";
+import { AccessScope } from "./access-scope";
 
 type DateValueShape = {
   year: number;
@@ -65,6 +70,8 @@ const formSchema = z.object({
 });
 
 export function ScheduleDonation() {
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -73,20 +80,38 @@ export function ScheduleDonation() {
     },
   });
 
+  const mutation = useMutation({
+    mutationKey: ["schedule-donation"],
+    mutationFn: async (hospitalName: string, donationTime: any) => {
+      const response = await saveEvent(hospitalName, donationTime);
+      if (response?.hasScope) {
+        setOpen(true);
+        return;
+      }
+    },
+    onError: (error) => {
+      console.log(error);
+      toast.error("Some Error Occurred");
+    },
+    onSuccess: () => {
+      toast.success("Scheduled your event successfully");
+    },
+  });
+
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     const scheduled = dateValueToDate(
       values.donationTime as DateValueShape | null
     );
     if (!scheduled) {
-      console.error("No valid donationTime provided");
+      toast.error("No valid donationTime provided");
       return;
     }
-    console.log({ ...values, donationTime: scheduled });
+    mutation.mutate(values.hospitalName, scheduled as any);
   };
 
   return (
     <div className="my-4">
-      <Dialog>
+      <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogTrigger asChild>
           <Button
             className="flex justify-center items-center gap-x-2"
@@ -102,10 +127,11 @@ export function ScheduleDonation() {
               Schedule your next donation
             </DialogTitle>
             <DialogDescription className="font-light text-neutral-500">
-              Our AI Agent will automatically schedule your donation in Google
-              Calendar and send an AI-generated reminder email.
+              It will automatically schedule your donation in Google Calendar
+              and send you an AI-generated reminder email.
             </DialogDescription>
           </DialogHeader>
+          <AccessScope open={open} setOpen={setOpen} />
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
               <FormField
@@ -149,8 +175,17 @@ export function ScheduleDonation() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" variant="secondary" className="w-full">
-                Submit
+              <Button
+                type="submit"
+                variant="secondary"
+                className="w-full"
+                disabled={mutation.isPending}
+              >
+                {mutation.isPending ? (
+                  <Loader className="animate-spin" />
+                ) : (
+                  "Submit"
+                )}
               </Button>
             </form>
           </Form>
