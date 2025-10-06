@@ -10,24 +10,33 @@ export const saveEvent = async (hospitalName: string, donationTime: any) => {
   try {
     const session = await auth.api.getSession({ headers: await headers() });
     if (!session) throw new Error("the user is not authenticated");
+
     const accessToken = await auth.api.getAccessToken({
       body: { providerId: "google", userId: session.user.id },
     });
     if (!accessToken) throw new Error("access token is not present");
     const hasScope = await checkScope(accessToken);
-    if (!hasScope) return { hasScope: false };
+    if (!hasScope) {
+      return {
+        hasScope: false
+      }
+    }
+
     const checkTime = donationTime > new Date();
     if (!checkTime) throw new Error("time must be in the future");
+
     const startTime = new Date(donationTime).toISOString();
     const endTime = new Date(
       new Date(donationTime).getTime() + 60 * 60 * 1000
     ).toISOString();
+    
     const event = {
       summary: `Blood donation at ${hospitalName}`,
       description: `Scheduled blood donation at ${hospitalName}`,
       start: { dateTime: startTime, timeZone: "Asia/Kolkata" },
       end: { dateTime: endTime, timeZone: "Asia/Kolkata" },
     };
+
     const oauth = new google.auth.OAuth2();
     oauth.setCredentials({ access_token: accessToken.accessToken });
     const calendar = google.calendar({ version: "v3", auth: oauth });
@@ -35,6 +44,7 @@ export const saveEvent = async (hospitalName: string, donationTime: any) => {
       calendarId: "primary",
       requestBody: event,
     });
+
     await connectToDb();
     const schedule = await Schedule.create({
       hospitalName,
@@ -43,6 +53,7 @@ export const saveEvent = async (hospitalName: string, donationTime: any) => {
       googleEventId: response.data.id,
       userId: session.user.id,
     });
+
     return {
       scheduleId: schedule._id.toString(),
       eventId: schedule.googleEventId,
