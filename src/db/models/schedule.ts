@@ -10,6 +10,12 @@ const scheduleSchema = new mongoose.Schema<ISchedule>(
     startAt: {
       type: Date,
       required: [true, "starting time is required"],
+      validate: {
+        validator: function (date: Date) {
+          return date > new Date();
+        },
+        message: "date must be in the future",
+      },
     },
     endAt: {
       type: Date,
