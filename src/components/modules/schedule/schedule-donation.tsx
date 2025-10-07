@@ -133,7 +133,7 @@ export function ScheduleDonation() {
             </DialogTitle>
             <DialogDescription className="font-light text-neutral-500">
               It will automatically schedule your donation in Google Calendar
-              and send you an AI-generated reminder email.
+              and send you a confirmation email.
             </DialogDescription>
           </DialogHeader>
           <AccessScope open={open} setOpen={setOpen} />

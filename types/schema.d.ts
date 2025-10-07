@@ -48,7 +48,6 @@ interface ISchedule {
   endAt: Date;
   googleEventId: string;
   confirmationEmailSent: boolean;
-  reminderEmailSent: boolean;
   userId?: mongoose.Schema.Types.ObjectId;
   createdAt?: Date;
   updatedAt?: Date;

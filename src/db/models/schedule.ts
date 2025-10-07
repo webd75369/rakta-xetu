@@ -30,11 +30,6 @@ const scheduleSchema = new mongoose.Schema<ISchedule>(
       default: false,
       required: true,
     },
-    reminderEmailSent: {
-      type: Boolean,
-      default: false,
-      required: true,
-    },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
@@ -47,4 +42,5 @@ const scheduleSchema = new mongoose.Schema<ISchedule>(
 const Schedule =
   mongoose.models?.Schedule ||
   mongoose.model<ISchedule>("Schedule", scheduleSchema);
+
 export default Schedule;
