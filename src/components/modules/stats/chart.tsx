@@ -13,7 +13,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { useQuery } from "@tanstack/react-query";
-import { chartInfo } from "@/server/profile";
+import { chartInfo } from "@/server/user/profile";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const chartConfig = {

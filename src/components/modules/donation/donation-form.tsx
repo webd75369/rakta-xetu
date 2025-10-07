@@ -15,7 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Coins } from "lucide-react";
 import { toast } from "sonner";
-import { createOrder, verifyPayment } from "@/server/donation";
+import { createOrder, verifyPayment } from "@/server/donation/donation";
 import { useRouter } from "next/navigation";
 
 const formSchema = z.object({

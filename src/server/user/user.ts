@@ -1,6 +1,6 @@
 "use server";
 import { auth } from "@/lib/auth";
-import { IProfile } from "../../types/schema";
+import { IProfile } from "../../../types/schema";
 import { headers } from "next/headers";
 import connectToDb from "@/db";
 import Profile from "@/db/models/profile";
