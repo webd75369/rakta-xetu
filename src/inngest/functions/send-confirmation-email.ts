@@ -5,6 +5,8 @@ import { Resend } from "resend";
 import { generateText } from "ai";
 import connectToDb from "@/db";
 import Schedule from "@/db/models/schedule";
+import { format } from "date-fns";
+import { toZonedTime } from "date-fns-tz";
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
@@ -12,6 +14,10 @@ export const sendConfirmationEmail = inngest.createFunction(
   { id: "confirmation" },
   { event: "confirmation/email" },
   async ({ event }) => {
+    const donationDateUTC = event.data.startTime;
+    const timeZone = "Asia/Kolkata";
+    const donationDateIST = toZonedTime(donationDateUTC, timeZone);
+    const formattedDate = format(donationDateIST, "d MMMM yyyy, h:mm a");
     const { text: markdownContent } = await generateText({
       model: xai("grok-3-mini"),
       prompt: `Generate a warm, professional, and concise confirmation email for a blood donation appointment       using the details below. Follow all instructions carefully.
@@ -20,7 +26,7 @@ export const sendConfirmationEmail = inngest.createFunction(
 
                hospitalName: ${event.data.hospitalName}
 
-               donationDateTime: ${new Date(event.data.startTime).toLocaleString()}
+               donationDateTime: ${formattedDate}
 
                googleCalendarLink: ${event.data.calendarLink}
 
@@ -38,7 +44,7 @@ export const sendConfirmationEmail = inngest.createFunction(
 
                6. Keep the email concise, well-structured, and easily readable (max 200 words).
 
-               7. Include a clear “Add to Calendar” section linking to the googleCalendarLink.
+               7. Include a clear “You can view and manage your scheduled donation in your calendar using the following link:” section linking to the googleCalendarLink.
 
                8. Sign off as “RaktaXetu Team”.
 
@@ -64,6 +70,6 @@ export const sendConfirmationEmail = inngest.createFunction(
         { new: true }
       );
     }
-    return data;
+    return { data, time: event.data.startTime };
   }
 );

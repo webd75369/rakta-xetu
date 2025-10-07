@@ -50,10 +50,10 @@ export const saveEvent = async (hospitalName: string, donationTime: any) => {
       googleEventId: response.data.id,
       userId: session.user.id,
     });
-    
+
     await sendEmail(
       hospitalName,
-      startTime,
+      schedule.startAt,
       calendarLink,
       session.user.email,
       session.user.id,

@@ -3,7 +3,7 @@ import { inngest } from "@/inngest/client";
 
 export const sendEmail = async (
   hospitalName: string,
-  startTime: string,
+  startTime: Date,
   calendarLink: string | null | undefined,
   email: string,
   userId: string,
