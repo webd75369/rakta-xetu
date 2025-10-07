@@ -25,7 +25,7 @@ import { Input } from "@/components/ui/input";
 import { DateField, DateInput } from "@/components/ui/datefield-rac";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
-import { saveEvent } from "@/server/gcp/calendar";
+import { saveEvent } from "@/server/schedule/calendar";
 import { toast } from "sonner";
 import { AccessScope } from "./access-scope";
 

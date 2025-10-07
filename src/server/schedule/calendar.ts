@@ -5,12 +5,12 @@ import { checkScope } from "./scope";
 import { google } from "googleapis";
 import connectToDb from "@/db";
 import Schedule from "@/db/models/schedule";
+import { sendEmail } from "./email";
 
 export const saveEvent = async (hospitalName: string, donationTime: any) => {
   try {
     const session = await auth.api.getSession({ headers: await headers() });
     if (!session) throw new Error("the user is not authenticated");
-
     const accessToken = await auth.api.getAccessToken({
       body: { providerId: "google", userId: session.user.id },
     });
@@ -39,7 +39,7 @@ export const saveEvent = async (hospitalName: string, donationTime: any) => {
       calendarId: "primary",
       requestBody: event,
     });
-
+    const calendarLink = response.data.htmlLink;
     await connectToDb();
     const schedule = await Schedule.create({
       hospitalName,
@@ -48,7 +48,7 @@ export const saveEvent = async (hospitalName: string, donationTime: any) => {
       googleEventId: response.data.id,
       userId: session.user.id,
     });
-
+    await sendEmail(hospitalName, startTime, calendarLink);
     return {
       scheduleId: schedule._id.toString(),
       eventId: schedule.googleEventId,
