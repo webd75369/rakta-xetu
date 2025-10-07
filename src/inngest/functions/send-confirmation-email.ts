@@ -12,22 +12,42 @@ export const sendConfirmationEmail = inngest.createFunction(
   async ({ event }) => {
     const { text: markdownContent } = await generateText({
       model: xai("grok-3-mini"),
-      prompt: `Generate a warm, professional confirmation email for a blood donation appointment.
+      prompt: `Generate a warm, professional, and concise confirmation email for a blood donation appointment       using the details below. Follow all instructions carefully.
 
-               Details:
-               - Hospital Name: ${event.data.hospitalName}
-               - Donation Date & Time: ${new Date(event.data.startTime).toLocaleString()}
-               - Google Calendar Link: ${event.data.googleCalendarLink}
-                   
+               Input Variables:
+
+               hospitalName: ${event.data.hospitalName}
+
+               donationDateTime: ${new Date(event.data.startTime).toLocaleString()}
+
+               googleCalendarLink: ${event.data.googleCalendarLink}
+
                Requirements:
-               1. Start with a friendly greeting addressing the donor.
-               2. Confirm their appointment details clearly (hospital name, date, time).
-               3. Include a short paragraph thanking them for contributing to saving lives.
-               4. Add 3 personalized health tips to prepare for a blood donation — such as hydration, rest, and diet.
-               5. Close with an encouraging message and a professional tone.
-               6. Keep it concise (max 200 words) and structured for email readability.
-               7. Include a clear "Add to Calendar" section linking to the provided Google Calendar link.`,
+
+               1. Begin with a friendly greeting addressing the donor.
+
+               2. Clearly confirm the appointment details (hospital name, date, and time).
+
+               3. Include a short paragraph expressing gratitude for their life-saving contribution.
+
+               4. Provide three practical health tips to prepare for the donation (e.g., hydration, rest, diet).
+
+               5. Close with an encouraging and professional message.
+
+               6. Keep the email concise, well-structured, and easily readable (max 200 words).
+
+               7. Include a clear “Add to Calendar” section linking to the googleCalendarLink.
+
+               8. Sign off as “RaktaXetu Team”.
+
+               9. Do not include any information not provided in the input.
+
+               Output Format:
+
+               Well-formatted email suitable for sending directly to the donor.
+               `,
     });
+    
     const { data } = await resend.emails.send({
       from: `RaktaXetu <${process.env.SMTP_DOMAIN!}>`,
       to: [event.data.email],
