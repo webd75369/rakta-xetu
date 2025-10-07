@@ -3,6 +3,8 @@ import { xai } from "@ai-sdk/xai";
 import { inngest } from "../client";
 import { Resend } from "resend";
 import { generateText } from "ai";
+import connectToDb from "@/db";
+import Schedule from "@/db/models/schedule";
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
@@ -20,7 +22,7 @@ export const sendConfirmationEmail = inngest.createFunction(
 
                donationDateTime: ${new Date(event.data.startTime).toLocaleString()}
 
-               googleCalendarLink: ${event.data.googleCalendarLink}
+               googleCalendarLink: ${event.data.calendarLink}
 
                Requirements:
 
@@ -47,13 +49,21 @@ export const sendConfirmationEmail = inngest.createFunction(
                Well-formatted email suitable for sending directly to the donor.
                `,
     });
-    
+
     const { data } = await resend.emails.send({
       from: `RaktaXetu <${process.env.SMTP_DOMAIN!}>`,
       to: [event.data.email],
       subject: "Blood Donation Confirmation & Health Tips",
       react: ConfirmationEmail({ markdownContent }),
     });
+    if (data?.id) {
+      await connectToDb();
+      await Schedule.findOneAndUpdate(
+        { userId: event.data.userId, googleEventId: event.data.googleEventId },
+        { $set: { confirmationEmailSent: true } },
+        { new: true }
+      );
+    }
     return data;
   }
 );

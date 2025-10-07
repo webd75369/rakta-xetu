@@ -11,6 +11,7 @@ export const saveEvent = async (hospitalName: string, donationTime: any) => {
   try {
     const session = await auth.api.getSession({ headers: await headers() });
     if (!session) throw new Error("the user is not authenticated");
+
     const accessToken = await auth.api.getAccessToken({
       body: { providerId: "google", userId: session.user.id },
     });
@@ -21,6 +22,7 @@ export const saveEvent = async (hospitalName: string, donationTime: any) => {
         hasScope: false,
       };
     }
+
     const startTime = new Date(donationTime).toISOString();
     const endTime = new Date(
       new Date(donationTime).getTime() + 60 * 60 * 1000
@@ -48,7 +50,15 @@ export const saveEvent = async (hospitalName: string, donationTime: any) => {
       googleEventId: response.data.id,
       userId: session.user.id,
     });
-    await sendEmail(hospitalName, startTime, calendarLink, session.user.email);
+    
+    await sendEmail(
+      hospitalName,
+      startTime,
+      calendarLink,
+      session.user.email,
+      session.user.id,
+      schedule.googleEventId
+    );
     return {
       scheduleId: schedule._id.toString(),
       eventId: schedule.googleEventId,

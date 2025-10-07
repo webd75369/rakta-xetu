@@ -5,7 +5,9 @@ export const sendEmail = async (
   hospitalName: string,
   startTime: string,
   calendarLink: string | null | undefined,
-  email: string
+  email: string,
+  userId: string,
+  googleEventId: string
 ) => {
   try {
     await inngest.send({
@@ -15,6 +17,8 @@ export const sendEmail = async (
         hospitalName,
         startTime,
         calendarLink,
+        userId,
+        googleEventId,
       },
     });
   } catch (error) {
