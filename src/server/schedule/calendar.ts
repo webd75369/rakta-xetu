@@ -48,7 +48,7 @@ export const saveEvent = async (hospitalName: string, donationTime: any) => {
       googleEventId: response.data.id,
       userId: session.user.id,
     });
-    await sendEmail(hospitalName, startTime, calendarLink);
+    await sendEmail(hospitalName, startTime, calendarLink, session.user.email);
     return {
       scheduleId: schedule._id.toString(),
       eventId: schedule.googleEventId,

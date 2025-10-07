@@ -4,12 +4,14 @@ import { inngest } from "@/inngest/client";
 export const sendEmail = async (
   hospitalName: string,
   startTime: string,
-  calendarLink: string | null | undefined
+  calendarLink: string | null | undefined,
+  email: string
 ) => {
   try {
     await inngest.send({
       name: "confirmation/email",
       data: {
+        email,
         hospitalName,
         startTime,
         calendarLink,
