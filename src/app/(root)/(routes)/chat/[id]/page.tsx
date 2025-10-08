@@ -7,5 +7,13 @@ export default async function ChatWindow({
   params: Promise<{ id: string }>;
 }) {
   const items = await getToken();
-  return <ChatComponent items={items} />;
+  const userId = (await params).id;
+  if ("message" in items) {
+    return (
+      <div className="p-4 text-center text-red-500">
+        Failed to initialize chat: {items.message}
+      </div>
+    );
+  }
+  return <ChatComponent items={items} userId={userId} />;
 }

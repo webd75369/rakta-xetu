@@ -1,4 +1,16 @@
 "use client";
+import { useState, useEffect } from "react";
+import type { Channel as StreamChannel } from "stream-chat";
+import {
+  useCreateChatClient,
+  Chat,
+  Channel,
+  ChannelHeader,
+  MessageInput,
+  MessageList,
+  Window,
+} from "stream-chat-react";
+import "stream-chat-react/dist/css/v2/index.css";
 
 interface TokenItem {
   token: string;
@@ -7,21 +19,51 @@ interface TokenItem {
     name: string;
     image: string;
   };
-  message?: undefined;
 }
 
-interface MessageItem {
-  message: string;
-  token?: undefined;
-  user?: undefined;
-}
+type Props = {
+  items: TokenItem;
+  userId: string;
+};
 
-type Props = TokenItem | MessageItem;
+export function ChatComponent({ items, userId }: Props) {
+  const [channel, setChannel] = useState<StreamChannel | null>(null);
 
-export function ChatComponent({ items }: { items: Props }) {
+  const client = useCreateChatClient({
+    apiKey: process.env.NEXT_PUBLIC_STREAM_API_KEY!,
+    tokenOrProvider: items.token,
+    userData: items.user,
+  });
+
+  useEffect(() => {
+    if (!client || !items.user?.id) return;
+    const createChannel = async () => {
+      const newChannel = client.channel("messaging", {
+        members: [items.user.id, userId],
+      });
+      await newChannel.watch();
+      setChannel(newChannel);
+    };
+
+    createChannel();
+  }, [client, items.user?.id, userId]);
+
+  if (!client || !channel) {
+    return (
+      <div className="p-4 text-center bg-accent-400 border border-accent-500 rounded">
+        Setting up chat...
+      </div>
+    );
+  }
   return (
-    <div>
-      <p>Chat Component</p>
-    </div>
+    <Chat client={client}>
+      <Channel channel={channel}>
+        <Window>
+          <ChannelHeader />
+          <MessageList />
+          <MessageInput />
+        </Window>
+      </Channel>
+    </Chat>
   );
 }
