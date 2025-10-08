@@ -5,6 +5,12 @@ import { headers } from "next/headers";
 import connectToDb from "@/db";
 import Profile from "@/db/models/profile";
 import { ObjectId } from "mongodb";
+import { StreamChat } from "stream-chat";
+
+const serverClient = StreamChat.getInstance(
+  process.env.STREAM_API_KEY!,
+  process.env.STREAM_API_SECRET!
+);
 
 export const createUser = async (items: IProfile) => {
   try {
@@ -18,6 +24,13 @@ export const createUser = async (items: IProfile) => {
     const profile = await Profile.findOne({ userId: session.user.id });
     if (profile) throw new Error("profile already exists");
     const result = await Profile.create({ ...items, userId: session.user.id });
+    await serverClient.upsertUser({
+      id: session.user.id,
+      name: session.user.name,
+      image:
+        session.user.image ||
+        `https://getstream.io/random_png/?id=${session.user.id}`,
+    });
     return {
       profileId: result._id.toString(),
     };
