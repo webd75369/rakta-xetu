@@ -7,7 +7,7 @@ import { useSearchUser } from "@/store/user";
 export function SearchUsers() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { searchUser, setSearchUser } = useSearchUser();
-  
+
   useEffect(() => {
     if (searchUser) {
       setIsLoading(true);
@@ -20,12 +20,11 @@ export function SearchUsers() {
   }, [searchUser]);
 
   return (
-    <div className="max-w-lg">
+    <div className="max-w-lg mx-auto">
       <div className="relative w-full">
         <Input
           className="peer ps-9 pe-9 w-full"
-          placeholder="Search..."
-          type="search"
+          placeholder="Search Users"
           value={searchUser}
           onChange={(e) => setSearchUser(e.target.value)}
         />
