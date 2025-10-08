@@ -60,7 +60,7 @@ interface IUser {
   isDonor: boolean;
   email: string;
   emailVerified?: boolean;
-  image?: boolean;
+  image: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
