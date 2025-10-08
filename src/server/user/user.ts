@@ -4,6 +4,7 @@ import { IProfile } from "../../../types/schema";
 import { headers } from "next/headers";
 import connectToDb from "@/db";
 import Profile from "@/db/models/profile";
+import { ObjectId } from "mongodb";
 
 export const createUser = async (items: IProfile) => {
   try {
@@ -33,7 +34,10 @@ export const listUsers = async () => {
     const session = await auth.api.getSession({ headers: await headers() });
     if (!session) throw new Error("user is not authenticated");
     await connectToDb();
-    const result = await db.collection("user").find().toArray();
+    const result = await db
+      .collection("user")
+      .find({ _id: { $ne: new ObjectId(session.user.id) } })
+      .toArray();
     const users = JSON.parse(JSON.stringify(result));
     return users;
   } catch (error) {
