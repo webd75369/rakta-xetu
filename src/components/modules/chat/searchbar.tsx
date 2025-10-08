@@ -2,14 +2,12 @@
 import React, { useEffect, useState } from "react";
 import { LoaderCircleIcon, SearchIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { useSearchUser } from "@/store/user";
 
-interface Props {
-  searchUser: string;
-  setSearchUser: React.Dispatch<React.SetStateAction<string>>;
-}
-
-export function SearchUsers({ searchUser, setSearchUser }: Props) {
+export function SearchUsers() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { searchUser, setSearchUser } = useSearchUser();
+  
   useEffect(() => {
     if (searchUser) {
       setIsLoading(true);
