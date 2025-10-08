@@ -19,7 +19,7 @@ export const getToken = async () => {
         name: session.user.name,
         image:
           session.user.image ??
-          `https://getstream.io/random_png/?id=${user.id}`,
+          `https://getstream.io/random_png/?id=${session.user.id}`,
       },
     };
   } catch (error) {
