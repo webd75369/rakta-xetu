@@ -39,7 +39,7 @@ export function UsersComponent({ users }: { users: IUser[] }) {
     <div className="max-w-md mx-auto my-4">
       {paginatedUsers.map((user: IUser) => (
         <div
-          className="w-full flex justify-between items-center p-3 rounded-lg border shadow-xs"
+          className="w-full flex justify-between items-center p-3 rounded-lg border shadow-xs mb-4"
           key={user._id?.toString()}
         >
           <div className="flex justify-center items-center gap-x-3">

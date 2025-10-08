@@ -1,4 +1,5 @@
 "use server";
+
 import { auth, db } from "@/lib/auth";
 import { IProfile } from "../../../types/schema";
 import { headers } from "next/headers";
@@ -50,6 +51,7 @@ export const listUsers = async () => {
     const result = await db
       .collection("user")
       .find({ _id: { $ne: new ObjectId(session.user.id) } })
+      .sort({ createdAt: -1 })
       .toArray();
     const users = JSON.parse(JSON.stringify(result));
     return users;
