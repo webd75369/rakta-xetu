@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import type { Channel as StreamChannel } from "stream-chat";
 import {
@@ -37,6 +38,7 @@ export function ChatComponent({ items, userId }: Props) {
 
   useEffect(() => {
     if (!client || !items.user?.id) return;
+
     const createChannel = async () => {
       const newChannel = client.channel("messaging", {
         members: [items.user.id, userId],
@@ -50,11 +52,14 @@ export function ChatComponent({ items, userId }: Props) {
 
   if (!client || !channel) {
     return (
-      <div className="p-4 text-center bg-accent-400 border border-accent-500 rounded">
-        Setting up chat...
+      <div className="p-4 w-full flex justify-center items-center">
+        <p className="py-1 px-2 bg-amber-400 border text-white border-amber-600 rounded w-fit text-sm font-light">
+          Initializing Chat..
+        </p>
       </div>
     );
   }
+
   return (
     <Chat client={client}>
       <Channel channel={channel}>
