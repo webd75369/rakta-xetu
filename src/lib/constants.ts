@@ -1,4 +1,10 @@
-import { Droplet, HeartHandshake, Stethoscope, User } from "lucide-react";
+import {
+  Droplet,
+  HeartHandshake,
+  MessageSquarePlus,
+  Stethoscope,
+  User,
+} from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 interface IMenu {
@@ -12,6 +18,11 @@ export const menuItems: IMenu[] = [
     label: "Home",
     path: "/",
     icon: Stethoscope,
+  },
+  {
+    label: "Chat",
+    path: "/chat",
+    icon: MessageSquarePlus,
   },
   {
     label: "Request Blood",
