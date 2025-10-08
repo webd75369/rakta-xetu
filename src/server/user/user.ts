@@ -1,5 +1,5 @@
 "use server";
-import { auth } from "@/lib/auth";
+import { auth, db } from "@/lib/auth";
 import { IProfile } from "../../../types/schema";
 import { headers } from "next/headers";
 import connectToDb from "@/db";
@@ -24,6 +24,21 @@ export const createUser = async (items: IProfile) => {
     console.error(error);
     return {
       message: "failed to create profile",
+    };
+  }
+};
+
+export const listUsers = async () => {
+  try {
+    const session = await auth.api.getSession({ headers: await headers() });
+    if (!session) throw new Error("user is not authenticated");
+    await connectToDb();
+    const users = await db.collection("user").find().toArray();
+    return users;
+  } catch (error) {
+    console.error(error);
+    return {
+      message: "failed to list users",
     };
   }
 };
