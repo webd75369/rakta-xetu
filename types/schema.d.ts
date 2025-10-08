@@ -53,4 +53,16 @@ interface ISchedule {
   updatedAt?: Date;
 }
 
-export { IProfile, IBlood, IDonation, ISchedule };
+interface IUser {
+  _id?: mongoose.Types.ObjectId;
+  name: string;
+  isUser: boolean;
+  isDonor: boolean;
+  email: string;
+  emailVerified?: boolean;
+  image?: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export { IProfile, IBlood, IDonation, ISchedule, IUser };

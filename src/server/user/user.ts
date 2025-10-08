@@ -33,7 +33,8 @@ export const listUsers = async () => {
     const session = await auth.api.getSession({ headers: await headers() });
     if (!session) throw new Error("user is not authenticated");
     await connectToDb();
-    const users = await db.collection("user").find().toArray();
+    const result = await db.collection("user").find().toArray();
+    const users = JSON.parse(JSON.stringify(result));
     return users;
   } catch (error) {
     console.error(error);
