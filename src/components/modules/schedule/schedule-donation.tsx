@@ -96,6 +96,7 @@ export function ScheduleDonation() {
     onSuccess: (data) => {
       if (data === false) return;
       toast.success("Scheduled your event successfully");
+      form.reset();
       setOpenDialog(false);
     },
   });
