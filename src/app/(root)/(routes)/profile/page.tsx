@@ -8,6 +8,7 @@ import Link from "next/link";
 
 export default async function Profile() {
   const info = await getProfileInfo();
+
   return (
     <div className="w-full">
       <div className="flex justify-center items-center my-6">
@@ -63,11 +64,6 @@ export default async function Profile() {
           </Link>
         </Button>
       </div>
-      <Link className="my-6 text-center" href="/privacy-policy">
-        <p className="text-sm font-light text-neutral-400 underline">
-          Privacy Policy
-        </p>
-      </Link>
     </div>
   );
 }

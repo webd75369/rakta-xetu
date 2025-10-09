@@ -1,6 +1,7 @@
 import { LoginButton } from "@/components/auth/login-button";
 import { Button } from "@/components/ui/button";
 import { HeartPulse } from "lucide-react";
+import Link from "next/link";
 
 export default function AuthPage() {
   return (
@@ -14,6 +15,18 @@ export default function AuthPage() {
           Login to RaktaXetu to join the life-saving community
         </p>
         <LoginButton />
+      </div>
+      <div className="fixed bottom-0 p-6 w-full text-center">
+        <div className="text-neutral-400 font-extralight text-sm">
+          By signing up, you agree to our <br />{" "}
+          <Link href="/terms" className="underline">
+            Terms and Conditions
+          </Link>{" "}
+          and{" "}
+          <Link href="/privacy-policy" className="underline">
+            Privacy Policy
+          </Link>
+        </div>
       </div>
     </div>
   );
