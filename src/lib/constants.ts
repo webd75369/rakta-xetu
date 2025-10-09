@@ -4,6 +4,7 @@ import {
   MessageSquarePlus,
   Stethoscope,
   User,
+  Coins
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -45,6 +46,11 @@ export const menuItems: IMenu[] = [
     path: "/profile",
     icon: User,
   },
+  {
+    label: "Donate Us",
+    path: "/donate-us",
+    icon: Coins,
+  }
 ];
 
 export const socialLinks: ISocial[] = [
