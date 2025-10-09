@@ -13,6 +13,12 @@ interface IMenu {
   icon: LucideIcon;
 }
 
+interface ISocial {
+  label: string;
+  path: string;
+  imageUrl: string;
+}
+
 export const menuItems: IMenu[] = [
   {
     label: "Home",
@@ -38,5 +44,28 @@ export const menuItems: IMenu[] = [
     label: "Profile",
     path: "/profile",
     icon: User,
+  },
+];
+
+export const socialLinks: ISocial[] = [
+  {
+    label: "instagram",
+    path: "https://www.instagram.com/raktaxetu",
+    imageUrl: "/icons/instagram.svg",
+  },
+  {
+    label: "threads",
+    path: "https://www.threads.com/@raktaxetu",
+    imageUrl: "/icons/threads.svg",
+  },
+  {
+    label: "x",
+    path: "https://x.com/raktaxetu",
+    imageUrl: "/icons/twitter.svg",
+  },
+  {
+    label: "linkedin",
+    path: "https://www.linkedin.com/in/rakta-xetu-bab891389",
+    imageUrl: "/icons/linkedin.svg",
   },
 ];
