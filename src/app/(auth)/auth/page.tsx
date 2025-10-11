@@ -1,6 +1,9 @@
 import { LoginButton } from "@/components/auth/login-button";
 import { Button } from "@/components/ui/button";
+import { socialLinks } from "@/lib/constants";
 import { HeartPulse } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function AuthPage() {
   return (
@@ -14,6 +17,37 @@ export default function AuthPage() {
           Login to RaktaXetu to join the life-saving community
         </p>
         <LoginButton />
+      </div>
+      <div className="fixed bottom-0 p-6 w-full text-center">
+        <div className="text-neutral-400 font-extralight text-sm">
+          By signing up, you agree to our <br />{" "}
+          <Link href="/terms" className="underline">
+            Terms & Conditions
+          </Link>{" "}
+          and{" "}
+          <Link href="/privacy-policy" className="underline">
+            Privacy Policy
+          </Link>
+        </div>
+        <div className="my-4">
+          <p className="text-neutral-400 font-extralight text-sm text-center">
+            Find Us On
+          </p>
+          <div className="flex gap-x-4 my-2 justify-center items-center">
+            {socialLinks.map((item) => (
+              <a href={item.path} target="_blank" key={item.path}>
+                <button className="cursor-pointer">
+                  <Image
+                    src={item.imageUrl}
+                    height={24}
+                    width={24}
+                    alt={item.label}
+                  />
+                </button>
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

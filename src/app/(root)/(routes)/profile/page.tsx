@@ -1,3 +1,4 @@
+import { DeleteAccount } from "@/components/auth/delete-user";
 import { DonationStatus } from "@/components/modules/profile/donation-status";
 import { ChartComponent } from "@/components/modules/stats/chart";
 import { Button } from "@/components/ui/button";
@@ -53,21 +54,8 @@ export default async function Profile() {
         </Button>
       </div>
       <div className="my-6 flex justify-center items-center">
-        <Button variant="secondary" asChild>
-          <Link
-            href="/profile/donate-us"
-            className="flex justify-center items-center gap-x-2"
-          >
-            <span>Donate Us</span>
-            <Coins />
-          </Link>
-        </Button>
+        <DeleteAccount />
       </div>
-      <Link className="my-6 text-center" href="/privacy-policy">
-        <p className="text-sm font-light text-neutral-400 underline">
-          Privacy Policy
-        </p>
-      </Link>
     </div>
   );
 }
