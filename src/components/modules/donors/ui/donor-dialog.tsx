@@ -75,18 +75,18 @@ export function DonorDialog({ donor, open, onOpenChange }: DonorDialogProps) {
             <div>Location: {donor.location}</div>
           </div>
         </div>
-        <DialogFooter>
-          <Button variant="secondary" asChild>
+        <DialogFooter className="grid grid-cols-2 place-items-center gap-x-4">
+          <Button variant="secondary" asChild className="w-full">
             <Link
               href={`/chat/${donor.user._id?.toString()}`}
-              className="flex justify-center items-center gap-x-2"
+              className="flex justify-center items-center gap-x-2 w-full"
             >
               Chat Now
               <MessageSquareShare />
             </Link>
           </Button>
           <Button
-            className="flex justify-center items-center gap-x-2"
+            className="flex justify-center items-center gap-x-2 w-full"
             variant="tertiary"
           >
             Send Request
