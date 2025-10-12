@@ -1,12 +1,14 @@
 "use client";
 
 import { Spinner } from "@/components/spinner";
+import { Button } from "@/components/ui/button";
 import { type User } from "stream-chat";
 import {
   Chat,
   ChannelList,
   useCreateChatClient,
   LoadMorePaginator,
+  LoadMorePaginatorProps,
 } from "stream-chat-react";
 import "stream-chat-react/dist/css/v2/index.css";
 
@@ -14,6 +16,22 @@ interface Props {
   user: User;
   token: string;
 }
+
+const CustomLoadMoreButton = ({
+  onClick,
+}: {
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+}) => (
+  <div className="my-4 flex justify-center items-center">
+    <Button variant="outline" onClick={onClick}>
+      Load More
+    </Button>
+  </div>
+);
+
+const CustomPaginator = (props: LoadMorePaginatorProps) => (
+  <LoadMorePaginator {...props} LoadMoreButton={CustomLoadMoreButton} />
+);
 
 export function ChannelsList({ user, token }: Props) {
   const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY!;
@@ -45,7 +63,7 @@ export function ChannelsList({ user, token }: Props) {
           filters={filters}
           options={options}
           sort={sort}
-          Paginator={LoadMorePaginator}
+          Paginator={CustomPaginator}
           showChannelSearch={true}
         />
       </Chat>
