@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import type { Channel as StreamChannel } from "stream-chat";
 import {
@@ -10,6 +9,7 @@ import {
   MessageInput,
   MessageList,
   Window,
+  Thread,
 } from "stream-chat-react";
 import "stream-chat-react/dist/css/v2/index.css";
 
@@ -46,7 +46,6 @@ export function ChatComponent({ items, userId }: Props) {
       await newChannel.watch();
       setChannel(newChannel);
     };
-
     createChannel();
   }, [client, items.user?.id, userId]);
 
@@ -68,6 +67,7 @@ export function ChatComponent({ items, userId }: Props) {
           <MessageList />
           <MessageInput />
         </Window>
+        <Thread />
       </Channel>
     </Chat>
   );

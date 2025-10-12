@@ -1,4 +1,5 @@
 "use client";
+
 import {
   Label,
   PolarGrid,
@@ -32,7 +33,6 @@ export function ChartComponent() {
     queryKey: ["chart"],
     queryFn: async () => {
       const result = await chartInfo();
-      console.log(result);
       return result;
     },
   });
