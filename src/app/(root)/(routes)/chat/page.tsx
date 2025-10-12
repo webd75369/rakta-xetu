@@ -1,5 +1,5 @@
 import { SearchUsers } from "@/components/modules/chat/searchbar";
-import { UsersComponent } from "@/components/modules/chat/users";
+import { UsersList } from "@/components/modules/chat/users-list";
 import { listUsers } from "@/server/user/user";
 
 export default async function ChatPage() {
@@ -10,7 +10,7 @@ export default async function ChatPage() {
         Find Someone to Chat With
       </p>
       <SearchUsers />
-      <UsersComponent users={users} />
+      <UsersList users={users} />
     </div>
   );
 }
