@@ -2,7 +2,12 @@
 
 import { Spinner } from "@/components/spinner";
 import { type User } from "stream-chat";
-import { Chat, ChannelList, useCreateChatClient } from "stream-chat-react";
+import {
+  Chat,
+  ChannelList,
+  useCreateChatClient,
+  LoadMorePaginator,
+} from "stream-chat-react";
 import "stream-chat-react/dist/css/v2/index.css";
 
 interface Props {
@@ -16,7 +21,7 @@ export function ChannelsList({ user, token }: Props) {
   const userToken = token;
 
   const filters = { members: { $in: [userId] }, type: "messaging" };
-  const options = { presence: true, state: true };
+  const options = { presence: true, state: true, limit: 5 };
   const sort = { last_message_at: -1 } as any;
 
   const client = useCreateChatClient({
@@ -34,9 +39,15 @@ export function ChannelsList({ user, token }: Props) {
   }
 
   return (
-    <div className="max-w-md mx-auto w-full">
+    <div className="w-full max-w-xl mx-auto">
       <Chat client={client}>
-        <ChannelList filters={filters} options={options} sort={sort} />
+        <ChannelList
+          filters={filters}
+          options={options}
+          sort={sort}
+          Paginator={LoadMorePaginator}
+          showChannelSearch={true}
+        />
       </Chat>
     </div>
   );

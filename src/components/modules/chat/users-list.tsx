@@ -31,7 +31,7 @@ export function UsersList({ users }: { users: IUser[] }) {
   }, []);
 
   return (
-    <div className="max-w-lg mx-auto flex justify-start w-full items-center my-4">
+    <div className="max-w-xl mx-auto flex justify-start w-full items-center">
       <Button
         variant="secondary"
         className="flex justify-center items-center gap-x-2"
