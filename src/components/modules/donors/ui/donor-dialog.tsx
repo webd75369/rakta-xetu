@@ -70,6 +70,10 @@ export function DonorDialog({ donor, open, onOpenChange }: DonorDialogProps) {
             <PhoneCall size={16} className="text-rose-500" />
             <div>Phone Number: {donor.phoneNumber}</div>
           </div>
+          <div className="flex justify-start items-center gap-x-2 text-neutral-600 font-light text-sm">
+            <MapPin size={16} className="text-rose-500" />
+            <div>Location: {donor.location}</div>
+          </div>
         </div>
         <DialogFooter>
           <Button variant="secondary" asChild>
@@ -81,7 +85,10 @@ export function DonorDialog({ donor, open, onOpenChange }: DonorDialogProps) {
               <MessageSquareShare />
             </Link>
           </Button>
-          <Button className="flex justify-center items-center gap-x-2">
+          <Button
+            className="flex justify-center items-center gap-x-2"
+            variant="tertiary"
+          >
             Send Request
             <ArrowUpRight />
           </Button>
