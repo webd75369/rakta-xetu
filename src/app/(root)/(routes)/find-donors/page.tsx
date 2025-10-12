@@ -1,4 +1,4 @@
-export function FindDonors() {
+export default function FindDonors() {
   return (
     <div>
       <p className="text-neutral-500 font-light">Find Donors</p>
