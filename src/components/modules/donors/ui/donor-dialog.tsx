@@ -3,10 +3,25 @@
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 import { IDonor } from "../../../../../types/schema";
+import {
+  ArrowUpRight,
+  CalendarCheck,
+  Droplet,
+  Mail,
+  MapPin,
+  MessageSquareShare,
+  PhoneCall,
+  User,
+  VenusAndMars,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 interface DonorDialogProps {
   donor: IDonor;
@@ -19,44 +34,58 @@ export function DonorDialog({ donor, open, onOpenChange }: DonorDialogProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-sm">
+      <DialogContent className="w-[400px]">
         <DialogHeader>
-          <DialogTitle>{donor.user.name}</DialogTitle>
+          <DialogTitle className="text-lg text-neutral-600 font-light">
+            Donor Information
+          </DialogTitle>
+          <DialogDescription className="font-light text-neutral-500">
+            These are the basic information about the donor
+          </DialogDescription>
         </DialogHeader>
-
-        <div className="flex flex-col gap-2 mt-2 text-sm text-neutral-600">
-          <p>
-            <span className="font-medium">Blood Group:</span> {donor.bloodGroup}
-          </p>
-          <p>
-            <span className="font-medium">Gender:</span> {donor.gender}
-          </p>
-          <p>
-            <span className="font-medium">Location:</span> {donor.location}
-          </p>
-          <p>
-            <span className="font-medium">Phone:</span> {donor.phoneNumber}
-          </p>
-          <p>
-            <span className="font-medium">DOB:</span> {donor.dateOfBirth}
-          </p>
-
-          <div className="mt-4 flex gap-2">
-            <a
-              href={`tel:${donor.phoneNumber}`}
-              className="bg-green-500 text-white px-3 py-1 rounded-md text-sm hover:bg-green-600 transition"
-            >
-              Call Donor
-            </a>
-            <a
-              href={`https://wa.me/${donor.phoneNumber.replace("+", "")}`}
-              target="_blank"
-              className="bg-emerald-500 text-white px-3 py-1 rounded-md text-sm hover:bg-emerald-600 transition"
-            >
-              WhatsApp
-            </a>
+        <div className="space-y-3">
+          <div className="flex justify-start items-center gap-x-2 text-neutral-600 font-light text-sm">
+            <User size={16} className="text-rose-500" />
+            <div>Full Name: {donor.user.name}</div>
+          </div>
+          <div className="flex justify-start items-center gap-x-2 text-neutral-600 font-light text-sm">
+            <Mail size={16} className="text-rose-500" />
+            <div>Email: {donor.user.email}</div>
+          </div>
+          <div className="flex justify-start items-center gap-x-2 text-neutral-600 font-light text-sm">
+            <VenusAndMars size={16} className="text-rose-500" />
+            <div>
+              Gender: {donor.gender[0].toUpperCase() + donor.gender.slice(1)}
+            </div>
+          </div>
+          <div className="flex justify-start items-center gap-x-2 text-neutral-600 font-light text-sm">
+            <CalendarCheck size={16} className="text-rose-500" />
+            <div>Date of Birth: {donor.dateOfBirth}</div>
+          </div>
+          <div className="flex justify-start items-center gap-x-2 text-neutral-600 font-light text-sm">
+            <Droplet size={16} className="text-rose-500" />
+            <div>Blood Group: {donor.bloodGroup}</div>
+          </div>
+          <div className="flex justify-start items-center gap-x-2 text-neutral-600 font-light text-sm">
+            <PhoneCall size={16} className="text-rose-500" />
+            <div>Phone Number: {donor.phoneNumber}</div>
           </div>
         </div>
+        <DialogFooter>
+          <Button variant="secondary" asChild>
+            <Link
+              href={`/chat/${donor.user._id?.toString()}`}
+              className="flex justify-center items-center gap-x-2"
+            >
+              Chat Now
+              <MessageSquareShare />
+            </Link>
+          </Button>
+          <Button className="flex justify-center items-center gap-x-2">
+            Send Request
+            <ArrowUpRight />
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
