@@ -35,7 +35,7 @@ export function DonorsList({ donors }: { donors: IDonor[] }) {
                 {donor.bloodGroup}
               </p>
               <p className="text-xs text-neutral-500 font-extralight">
-                {donor.gender}
+                {donor.gender[0].toUpperCase() + donor.gender.slice(1)}
               </p>
             </div>
           </div>
