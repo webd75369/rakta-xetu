@@ -9,7 +9,10 @@ import {
   useCreateChatClient,
   LoadMorePaginator,
   LoadMorePaginatorProps,
+  ChannelPreviewMessenger,
+  ChannelPreviewUIComponentProps,
 } from "stream-chat-react";
+import { useRouter } from "next/navigation";
 import "stream-chat-react/dist/css/v2/index.css";
 
 interface Props {
@@ -32,6 +35,29 @@ const CustomLoadMoreButton = ({
 const CustomPaginator = (props: LoadMorePaginatorProps) => (
   <LoadMorePaginator {...props} LoadMoreButton={CustomLoadMoreButton} />
 );
+
+const CustomChannelPreview = (props: ChannelPreviewUIComponentProps) => {
+  const router = useRouter();
+  const { channel } = props;
+  const currentUserId = props.channel.data?.created_by?.id;
+
+  const handleClick = () => {
+    const members = Object.values(channel.state.members);
+    const otherMember = members.find(
+      (member) => member.user_id !== currentUserId
+    );
+
+    if (otherMember) {
+      router.push(`/chat/${otherMember.user_id}`);
+    }
+  };
+
+  return (
+    <div onClick={handleClick}>
+      <ChannelPreviewMessenger {...props} />
+    </div>
+  );
+};
 
 export function ChannelsList({ user, token }: Props) {
   const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY!;
@@ -64,6 +90,7 @@ export function ChannelsList({ user, token }: Props) {
           options={options}
           sort={sort}
           Paginator={CustomPaginator}
+          Preview={CustomChannelPreview}
           showChannelSearch={true}
         />
       </Chat>
