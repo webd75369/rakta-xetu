@@ -2,15 +2,15 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import initials from "initials";
+import { IDonor } from "../../../../types/schema";
 
-export function DonorsList({ donors }: { donors: any }) {
-  console.log(donors);
+export function DonorsList({ donors }: { donors: IDonor[] }) {
   if (donors?.length === 0) {
     return <p className="text-red-500 font-light">No donors are present</p>;
   }
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 place-items-center gap-4 cursor-pointer">
-      {donors.map((donor: any) => (
+      {donors.map((donor: IDonor) => (
         <div
           className="p-3 rounded-lg border hover:bg-sidebar transition-all w-full"
           key={donor._id?.toString()}

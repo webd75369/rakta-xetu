@@ -65,4 +65,18 @@ interface IUser {
   updatedAt?: Date;
 }
 
-export { IProfile, IBlood, IDonation, ISchedule, IUser };
+interface IDonor {
+  _id?: mongoose.Types.ObjectId;
+  name: string;
+  phoneNumber: string;
+  gender: string;
+  dateOfBirth: string;
+  location: string;
+  bloodGroup: string;
+  userId?: mongoose.Schema.Types.ObjectId;
+  createdAt?: Date;
+  updatedAt?: Date;
+  user: IUser;
+}
+
+export { IProfile, IBlood, IDonation, ISchedule, IUser, IDonor };
