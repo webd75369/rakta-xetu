@@ -39,7 +39,7 @@ const CustomPaginator = (props: LoadMorePaginatorProps) => (
 const CustomChannelPreview = (props: ChannelPreviewUIComponentProps) => {
   const router = useRouter();
   const { channel } = props;
-  const currentUserId = props.channel.data?.created_by?.id;
+  const currentUserId = channel.getClient().userID;
 
   const handleClick = () => {
     const members = Object.values(channel.state.members);
