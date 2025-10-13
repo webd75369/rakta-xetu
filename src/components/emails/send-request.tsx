@@ -12,21 +12,22 @@ import {
 } from "@react-email/components";
 
 interface Props {
-  donor: IDonor;
-  requestorName?: string;
+  image: string;
+  requestor: IDonor;
   ctaUrl?: string;
+  email: string;
 }
 
-export function SendRequest({ donor, requestorName, ctaUrl }: Props) {
-  const name = requestorName ?? donor.user.name;
+export function SendRequest({ requestor, ctaUrl, email, image }: Props) {
+  const name = requestor.name;
   const details = [
-    { label: "Name", value: donor.user.name },
-    { label: "Email", value: donor.user.email },
-    { label: "Phone", value: donor.phoneNumber ?? "N/A" },
-    { label: "Location", value: donor.location ?? "N/A" },
-    { label: "Gender", value: donor.gender ?? "N/A" },
-    { label: "Blood Group", value: donor.bloodGroup ?? "N/A" },
-    { label: "Date of Birth", value: donor.dateOfBirth ?? "N/A" },
+    { label: "Name", value: requestor.name },
+    { label: "Email", value: email },
+    { label: "Phone", value: requestor.phoneNumber ?? "N/A" },
+    { label: "Location", value: requestor.location ?? "N/A" },
+    { label: "Gender", value: requestor.gender ?? "N/A" },
+    { label: "Blood Group", value: requestor.bloodGroup ?? "N/A" },
+    { label: "Date of Birth", value: requestor.dateOfBirth ?? "N/A" },
   ];
 
   return (
@@ -49,7 +50,7 @@ export function SendRequest({ donor, requestorName, ctaUrl }: Props) {
       >
         <Section style={{ textAlign: "center", paddingBottom: 12 }}>
           <Img
-            src={donor.user.image}
+            src={image}
             alt="Rakta Xetu"
             width={72}
             height={72}
@@ -59,7 +60,7 @@ export function SendRequest({ donor, requestorName, ctaUrl }: Props) {
             You have a new blood request
           </Heading>
           <Text style={{ color: "#64748b", marginTop: 0, marginBottom: 18 }}>
-            A donor has requested to help — see the details below and respond
+            A person has requested for help — see the details below and respond
             quickly.
           </Text>
         </Section>
@@ -82,7 +83,7 @@ export function SendRequest({ donor, requestorName, ctaUrl }: Props) {
 
         <Section>
           <Heading style={{ fontSize: 15, marginBottom: 8 }}>
-            Donor details
+            Requestor details
           </Heading>
 
           <Container
@@ -114,7 +115,7 @@ export function SendRequest({ donor, requestorName, ctaUrl }: Props) {
 
         <Section style={{ textAlign: "center", marginTop: 22 }}>
           <Button
-            href={ctaUrl ?? "mailto:" + donor.user.email}
+            href={ctaUrl ?? "mailto:" + email}
             style={{
               backgroundColor: "#dc2626",
               color: "#fff",
@@ -125,7 +126,7 @@ export function SendRequest({ donor, requestorName, ctaUrl }: Props) {
               fontWeight: 600,
             }}
           >
-            Contact donor
+            Contact Requestor
           </Button>
         </Section>
 
