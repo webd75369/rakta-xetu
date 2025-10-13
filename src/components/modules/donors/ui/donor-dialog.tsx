@@ -102,18 +102,18 @@ export function DonorDialog({
             <div>Location: {donor.location}</div>
           </div>
         </div>
-        <DialogFooter className="grid grid-cols-2 place-items-center gap-x-4">
-          <Button variant="secondary" asChild className="w-full">
+        <DialogFooter>
+          <Button variant="secondary" asChild>
             <Link
               href={`/chat/${donor.user._id?.toString()}`}
-              className="flex justify-center items-center gap-x-2 w-full"
+              className="flex justify-center items-center gap-x-2"
             >
               Chat Now
               <MessageSquareShare />
             </Link>
           </Button>
           <Button
-            className="flex justify-center items-center gap-x-2 w-full"
+            className="flex justify-center items-center gap-x-2"
             variant="tertiary"
             onClick={() => mutation.mutate()}
             disabled={mutation.isPending}
