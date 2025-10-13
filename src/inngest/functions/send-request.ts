@@ -10,7 +10,7 @@ export const sendRequest = inngest.createFunction(
   async ({ event }) => {
     const { data } = await resend.emails.send({
       from: `RaktaXetu <${process.env.SMTP_DOMAIN!}>`,
-      to: [event.data.email],
+      to: [event.data.donor],
       subject: "Donation Request",
       react: SendRequest({
         requestor: event.data.requestor,

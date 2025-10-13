@@ -6,7 +6,7 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { inngest } from "@/inngest/client";
 
-export const sendRequest = async () => {
+export const sendRequest = async (donorEmail: string) => {
   try {
     const session = await auth.api.getSession({ headers: await headers() });
     if (!session) throw new Error("the user is not authenticated");
@@ -18,6 +18,7 @@ export const sendRequest = async () => {
       data: {
         requestor,
         email,
+        donor: donorEmail,
         image,
       },
     });
