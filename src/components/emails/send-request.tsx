@@ -138,7 +138,7 @@ export function SendRequest({ donor, requestorName, ctaUrl }: Props) {
         >
           <Text style={{ color: "#94a3b8", fontSize: 12, margin: 0 }}>
             If you didn't expect this email, you can ignore it. For support,
-            reply to contact@raktaxetu.org
+            reply to raktaxetu@gmail.com
           </Text>
         </Section>
       </Container>
