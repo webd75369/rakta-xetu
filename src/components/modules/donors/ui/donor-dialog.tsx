@@ -13,6 +13,7 @@ import {
   ArrowUpRight,
   CalendarCheck,
   Droplet,
+  Loader,
   Mail,
   MapPin,
   MessageSquareShare,
@@ -22,15 +23,41 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useMutation } from "@tanstack/react-query";
+import { sendRequest } from "@/server/donors/send-request";
+import { toast } from "sonner";
+import React from "react";
 
 interface DonorDialogProps {
   donor: IDonor;
   open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onOpenChange: (open: boolean) => void;
 }
 
-export function DonorDialog({ donor, open, onOpenChange }: DonorDialogProps) {
+export function DonorDialog({
+  donor,
+  open,
+  onOpenChange,
+  setOpen,
+}: DonorDialogProps) {
   if (!donor) return null;
+
+  const mutation = useMutation({
+    mutationKey: ["send-request"],
+    mutationFn: async () => {
+      const response = await sendRequest(donor);
+      return response;
+    },
+    onSuccess: () => {
+      toast.success("Request has been sent successfully");
+      setOpen(false);
+    },
+    onError: (error) => {
+      console.log(error?.message);
+      toast.error("Failed to send request");
+    },
+  });
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -88,9 +115,15 @@ export function DonorDialog({ donor, open, onOpenChange }: DonorDialogProps) {
           <Button
             className="flex justify-center items-center gap-x-2 w-full"
             variant="tertiary"
+            onClick={() => mutation.mutate()}
+            disabled={mutation.isPending}
           >
-            Send Request
-            <ArrowUpRight />
+            {mutation?.isPending ? "Sending..." : "Send Request"}
+            {mutation?.isPending ? (
+              <Loader className="animate-spin" />
+            ) : (
+              <ArrowUpRight />
+            )}
           </Button>
         </DialogFooter>
       </DialogContent>

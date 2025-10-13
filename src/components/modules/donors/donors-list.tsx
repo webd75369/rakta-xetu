@@ -82,7 +82,12 @@ export function DonorsList({ donors }: { donors: IDonor[] }) {
       )}
 
       {selectedDonor && (
-        <DonorDialog donor={selectedDonor} open={open} onOpenChange={setOpen} />
+        <DonorDialog
+          donor={selectedDonor}
+          open={open}
+          setOpen={setOpen}
+          onOpenChange={setOpen}
+        />
       )}
     </>
   );
