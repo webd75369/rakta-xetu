@@ -137,3 +137,8 @@
 .no-spinner {
   -moz-appearance: textfield;
 }
+
+.str-chat__channel-list {
+  border-right-color: white !important;
+  border-right-width: 0px !important;
+}
