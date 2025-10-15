@@ -36,7 +36,7 @@ export async function ProfileInfo() {
           </p>
           <Button variant="tertiary" asChild className="mt-2" size="sm">
             <Link
-              href="/profile/complaint"
+              href="/complaint"
               className="flex justify-center items-center gap-x-2 text-neutral-500"
             >
               <span className="font-light">Make a Complaint</span>

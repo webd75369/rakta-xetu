@@ -101,7 +101,7 @@ export const features: IFeature[] = [
   {
     label: "AI Chat",
     description: "Get instant help from our AI assistant",
-    path: "/profile/chat",
+    path: "/chatbot",
     icon: BrainCircuit,
   },
 ];
