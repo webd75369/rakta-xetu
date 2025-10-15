@@ -3,7 +3,6 @@ import {
   HeartHandshake,
   MessageSquarePlus,
   Stethoscope,
-  User,
   Coins,
   Users,
   BrainCircuit,
@@ -49,11 +48,6 @@ export const menuItems: IMenu[] = [
     label: "Find Donors",
     path: "/find-donors",
     icon: HeartHandshake,
-  },
-  {
-    label: "Profile",
-    path: "/profile",
-    icon: User,
   },
   {
     label: "Donate Us",
