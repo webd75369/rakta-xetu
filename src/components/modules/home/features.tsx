@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export function Features() {
   return (
-    <div className="w-full my-6">
+    <div className="w-full my-4">
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 items-center gap-2">
         {features.map((feature, index) => (
           <Link
