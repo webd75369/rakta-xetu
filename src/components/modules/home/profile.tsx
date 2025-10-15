@@ -11,28 +11,31 @@ import { ChartComponent } from "../stats/chart";
 import { DonationStatus } from "../profile/donation-status";
 
 export async function ProfileInfo() {
-  const profileInfo = await getProfileInfo();
+  let profileInfo = null;
   const session = await auth.api.getSession({ headers: await headers() });
-  if (!session) redirect("/auth");
+  if(session) {
+    profileInfo = await getProfileInfo();
+  }
+  
   return (
     <div className="w-full grid grid-cols-1 sm:grid-cols-2 place-items-center gap-4 mb-4 h-full">
       <div className="p-4 rounded-lg border shadow-xs w-full h-full">
         <div className="flex flex-col gap-y-2 items-center justify-between">
           <Avatar className="h-[45px] w-[45px]">
-            <AvatarImage src={session.user.image!} />
+            <AvatarImage src={session?.user.image || ""} />
             <AvatarFallback className="bg-rose-500 text-white">
-              {initials(session.user.name)}
+              {initials(session?.user.name || "")}
             </AvatarFallback>
           </Avatar>
           <p className="text-xl text-neutral-600 font-light">
-            {session.user.name}
+            {session?.user.name}
           </p>
           <p className="text-sm text-neutral-500 font-light">
-            {session.user.email}
+            {session?.user.email}
           </p>
           <p className="text-neutral-500 font-light">
             Blood Group:{" "}
-            <span className="text-rose-500">{profileInfo.bloodGroup}</span>
+            <span className="text-rose-500">{profileInfo?.bloodGroup}</span>
           </p>
           <Button variant="tertiary" asChild className="mt-2" size="sm">
             <Link
