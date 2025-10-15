@@ -24,7 +24,7 @@ export function DonationStatus() {
   });
 
   return (
-    <div className="my-6 text-center flex justify-center items-center gap-x-4">
+    <div className="my-2 text-center flex justify-center items-center gap-x-4">
       <p className="text-neutral-500 font-light">Available For Donation</p>
       {!session ? (
         <Skeleton className="w-12 h-4" />

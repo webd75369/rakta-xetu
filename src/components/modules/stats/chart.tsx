@@ -44,26 +44,11 @@ export function ChartComponent() {
   ];
 
   return (
-    <div className="my-6">
-      <div className="flex justify-center items-center gap-x-12">
-        <div className="flex flex-col max-sm:hidden justify-center items-end flex-1">
-          <div className="flex flex-col justify-center items-center gap-y-2">
-            {query.isLoading ? (
-              <Skeleton className="w-[60px] h-3" />
-            ) : (
-              <p className="text-lg text-neutral-500">
-                {query.data?.totalDonations} Units
-              </p>
-            )}
-            <div className="flex justify-center items-center gap-x-2">
-              <p className="text-sm font-light text-neutral-400">Donated</p>
-              <div className="h-3 w-3 rounded bg-[var(--chart-1)]" />
-            </div>
-          </div>
-        </div>
+    <div>
+      <div>
         <ChartContainer
           config={chartConfig}
-          className="aspect-square h-[200px]"
+          className="aspect-auto size-[200px] scale-75"
         >
           <RadialBarChart
             data={chartData}
@@ -131,34 +116,21 @@ export function ChartComponent() {
             </PolarRadiusAxis>
           </RadialBarChart>
         </ChartContainer>
-        <div className="flex flex-col max-sm:hidden justify-center items-start flex-1">
-          <div className="flex flex-col justify-center items-center gap-y-2">
-            {query.isLoading ? (
-              <Skeleton className="w-[60px] h-3" />
-            ) : (
-              <p className="text-lg text-neutral-500">
-                {query.data?.totalRequests} Units
-              </p>
-            )}
-            <div className="flex justify-center items-center gap-x-2">
-              <div className="h-3 w-3 rounded bg-[var(--chart-2)]" />
-              <p className="text-sm font-light text-neutral-400">Requested</p>
-            </div>
-          </div>
-        </div>
       </div>
-      <div className="sm:hidden my-6 flex justify-center items-center gap-x-16">
+      <div className="flex justify-center items-center gap-x-16">
         <div className="flex flex-col justify-center items-end flex-1">
-          <div className="flex flex-col justify-center items-center gap-y-2">
+          <div className="flex flex-col justify-center items-center gap-y-1">
             {query.isLoading ? (
-              <Skeleton className="w-[60px] h-3" />
+              <Skeleton className="w-[30px] h-2" />
             ) : (
-              <p className="text-lg text-neutral-500">
+              <p className="text-sm text-neutral-500 font-light">
                 {query.data?.totalDonations} Units
               </p>
             )}
             <div className="flex justify-center items-center gap-x-2">
-              <p className="text-sm font-light text-neutral-400">Donated</p>
+              <p className="text-xs font-extralight text-neutral-400">
+                Donated
+              </p>
               <div className="h-3 w-3 rounded bg-[var(--chart-1)]" />
             </div>
           </div>
@@ -166,15 +138,17 @@ export function ChartComponent() {
         <div className="flex flex-col justify-center items-start flex-1">
           <div className="flex flex-col justify-center items-center gap-y-2">
             {query.isLoading ? (
-              <Skeleton className="w-[60px] h-3" />
+              <Skeleton className="w-[30px] h-2" />
             ) : (
-              <p className="text-lg text-neutral-500">
+              <p className="text-sm text-neutral-500 font-light">
                 {query.data?.totalRequests} Units
               </p>
             )}
             <div className="flex justify-center items-center gap-x-2">
               <div className="h-3 w-3 rounded bg-[var(--chart-2)]" />
-              <p className="text-sm font-light text-neutral-400">Requested</p>
+              <p className="text-xs font-extralight text-neutral-400">
+                Requested
+              </p>
             </div>
           </div>
         </div>
