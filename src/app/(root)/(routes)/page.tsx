@@ -15,7 +15,7 @@ export default async function Home() {
       <ScheduleDonation />
       <Features />
       <ProfileInfo />
-      <p className="text-sm text-neutral-500 font-light text-center pt-2">
+      <p className="text-sm text-neutral-500 font-light text-center pt-2 pb-4">
         © 2025 RaktaXetu — Connecting lives through blood donation.
       </p>
     </div>
