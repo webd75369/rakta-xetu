@@ -3,8 +3,9 @@ import {
   HeartHandshake,
   MessageSquarePlus,
   Stethoscope,
-  User,
   Coins,
+  Users,
+  BrainCircuit,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -18,6 +19,13 @@ interface ISocial {
   label: string;
   path: string;
   imageUrl: string;
+}
+
+interface IFeature {
+  icon: LucideIcon;
+  label: string;
+  description: string;
+  path: string;
 }
 
 export const menuItems: IMenu[] = [
@@ -40,11 +48,6 @@ export const menuItems: IMenu[] = [
     label: "Find Donors",
     path: "/find-donors",
     icon: HeartHandshake,
-  },
-  {
-    label: "Profile",
-    path: "/profile",
-    icon: User,
   },
   {
     label: "Donate Us",
@@ -73,5 +76,32 @@ export const socialLinks: ISocial[] = [
     label: "linkedin",
     path: "https://www.linkedin.com/in/rakta-xetu-bab891389",
     imageUrl: "/icons/linkedin.svg",
+  },
+];
+
+export const features: IFeature[] = [
+  {
+    label: "Request Blood",
+    description: "Post a blood request instantly",
+    path: "/request-blood",
+    icon: Droplet,
+  },
+  {
+    label: "Find Donors",
+    description: "Search and connect with nearby donors",
+    path: "/find-donors",
+    icon: Users,
+  },
+  {
+    label: "Live Chat",
+    description: "Talk to donors and requestors in real time",
+    path: "/chat",
+    icon: MessageSquarePlus,
+  },
+  {
+    label: "AI Chat",
+    description: "Get instant help from our AI assistant",
+    path: "/chatbot",
+    icon: BrainCircuit,
   },
 ];
