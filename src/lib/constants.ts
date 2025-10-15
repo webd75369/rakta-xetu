@@ -100,7 +100,7 @@ export const features: IFeature[] = [
   },
   {
     label: "Live Chat",
-    description: "Talk to donors in real time",
+    description: "Talk to donors and requestors in real time",
     path: "/chat",
     icon: MessageSquarePlus,
   },
