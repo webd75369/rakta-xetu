@@ -19,9 +19,10 @@ import {
   User,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { cancelRequest } from "@/server/request/cancel-request";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface MyRequestDialogProps {
   request: IBlood;
@@ -37,6 +38,7 @@ export function MyRequestDialog({
   setOpen,
 }: MyRequestDialogProps) {
   if (!request) return null;
+  const router = useRouter();
   const mutation = useMutation({
     mutationKey: ["cancel-request"],
     mutationFn: async () => {
@@ -46,6 +48,7 @@ export function MyRequestDialog({
     onSuccess: () => {
       toast.success("Request cancelled");
       setOpen(false);
+      router.refresh();
     },
     onError: (err: any) => {
       console.error(err?.message);
