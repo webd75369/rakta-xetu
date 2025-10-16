@@ -1,4 +1,4 @@
-"use client";
+"use server";
 
 import connectToDb from "@/db";
 import { Blood } from "@/db/models/blood";
