@@ -119,7 +119,7 @@ export function ChartComponent() {
       </div>
       <div className="flex justify-center items-center gap-x-16">
         <div className="flex flex-col justify-center items-end flex-1">
-          <div className="flex flex-col justify-center items-center gap-y-1">
+          <div className="flex flex-col justify-center items-center gap-y-2">
             {query.isLoading ? (
               <Skeleton className="w-[30px] h-2" />
             ) : (
