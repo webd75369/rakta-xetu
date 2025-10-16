@@ -14,7 +14,6 @@ import { IBlood } from "../../../../types/schema";
 
 interface Props {
   requests: IBlood[];
-  // optional initial filter values
   initialIsAccepted?: boolean | null;
   initialIsCritical?: boolean | null;
 }
@@ -55,7 +54,7 @@ export function RequestsList({
             Accepted:
           </label>
           <DropdownMenu>
-            <DropdownMenuTrigger className="border rounded px-2 py-1 text-sm text-neutral-500 font-light">
+            <DropdownMenuTrigger className="border cursor-pointer rounded px-2 py-1 text-sm text-neutral-500 font-light">
               {typeof isAcceptedFilter === "boolean"
                 ? isAcceptedFilter
                   ? "Accepted"
@@ -75,11 +74,22 @@ export function RequestsList({
                   setIsAcceptedFilter(val === "all" ? null : val === "true")
                 }
               >
-                <DropdownMenuRadioItem value="all">All</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="true">
+                <DropdownMenuRadioItem
+                  value="all"
+                  className="text-neutral-500 font-light cursor-pointer"
+                >
+                  All
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem
+                  value="true"
+                  className="text-neutral-500 font-light cursor-pointer"
+                >
                   Accepted
                 </DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="false">
+                <DropdownMenuRadioItem
+                  value="false"
+                  className="text-neutral-500 font-light cursor-pointer"
+                >
                   Not accepted
                 </DropdownMenuRadioItem>
               </DropdownMenuRadioGroup>
@@ -92,7 +102,7 @@ export function RequestsList({
             Critical:
           </label>
           <DropdownMenu>
-            <DropdownMenuTrigger className="border rounded px-2 py-1 text-sm text-neutral-500 font-light">
+            <DropdownMenuTrigger className="border cursor-pointer rounded px-2 py-1 text-sm text-neutral-500 font-light">
               {typeof isCriticalFilter === "boolean"
                 ? isCriticalFilter
                   ? "Critical"
@@ -112,11 +122,22 @@ export function RequestsList({
                   setIsCriticalFilter(val === "all" ? null : val === "true")
                 }
               >
-                <DropdownMenuRadioItem value="all">All</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="true">
+                <DropdownMenuRadioItem
+                  value="all"
+                  className="text-neutral-500 font-light cursor-pointer"
+                >
+                  All
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem
+                  value="true"
+                  className="text-neutral-500 font-light cursor-pointer"
+                >
                   Critical
                 </DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="false">
+                <DropdownMenuRadioItem
+                  value="false"
+                  className="text-neutral-500 font-light cursor-pointer"
+                >
                   Not critical
                 </DropdownMenuRadioItem>
               </DropdownMenuRadioGroup>
@@ -126,7 +147,7 @@ export function RequestsList({
       </div>
       {filtered.length === 0 ? (
         <div className="my-4">
-          <p className="text-neutral-500 font-light">No requests found</p>
+          <p className="text-rose-500 font-light">No requests found</p>
         </div>
       ) : (
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 justify-center items-center">

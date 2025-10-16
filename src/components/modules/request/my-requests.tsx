@@ -48,7 +48,7 @@ export function MyRequestsList({ requests }: Props) {
             Accepted:
           </label>
           <DropdownMenu>
-            <DropdownMenuTrigger className="border rounded px-2 py-1 text-sm text-neutral-500 font-light">
+            <DropdownMenuTrigger className="border cursor-pointer rounded px-2 py-1 text-sm text-neutral-500 font-light">
               {typeof isAcceptedFilter === "boolean"
                 ? isAcceptedFilter
                   ? "Accepted"
@@ -68,11 +68,22 @@ export function MyRequestsList({ requests }: Props) {
                   setIsAcceptedFilter(val === "all" ? null : val === "true")
                 }
               >
-                <DropdownMenuRadioItem value="all">All</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="true">
+                <DropdownMenuRadioItem
+                  value="all"
+                  className="text-neutral-500 font-light cursor-pointer"
+                >
+                  All
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem
+                  value="true"
+                  className="text-neutral-500 font-light cursor-pointer"
+                >
                   Accepted
                 </DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="false">
+                <DropdownMenuRadioItem
+                  value="false"
+                  className="text-neutral-500 font-light cursor-pointer"
+                >
                   Not accepted
                 </DropdownMenuRadioItem>
               </DropdownMenuRadioGroup>
@@ -85,7 +96,7 @@ export function MyRequestsList({ requests }: Props) {
             Critical:
           </label>
           <DropdownMenu>
-            <DropdownMenuTrigger className="border rounded px-2 py-1 text-sm text-neutral-500 font-light">
+            <DropdownMenuTrigger className="border cursor-pointer rounded px-2 py-1 text-sm text-neutral-500 font-light">
               {typeof isCriticalFilter === "boolean"
                 ? isCriticalFilter
                   ? "Critical"
@@ -105,11 +116,22 @@ export function MyRequestsList({ requests }: Props) {
                   setIsCriticalFilter(val === "all" ? null : val === "true")
                 }
               >
-                <DropdownMenuRadioItem value="all">All</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="true">
+                <DropdownMenuRadioItem
+                  value="all"
+                  className="text-neutral-500 font-light cursor-pointer"
+                >
+                  All
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem
+                  value="true"
+                  className="text-neutral-500 font-light cursor-pointer"
+                >
                   Critical
                 </DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="false">
+                <DropdownMenuRadioItem
+                  value="false"
+                  className="text-neutral-500 font-light cursor-pointer"
+                >
                   Not critical
                 </DropdownMenuRadioItem>
               </DropdownMenuRadioGroup>
@@ -120,9 +142,7 @@ export function MyRequestsList({ requests }: Props) {
 
       {filtered.length === 0 ? (
         <div className="my-4">
-          <p className="text-rose-500 font-light">
-            You have not made any request
-          </p>
+          <p className="text-rose-500 font-light">No requests found</p>
         </div>
       ) : (
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 justify-center items-center">
