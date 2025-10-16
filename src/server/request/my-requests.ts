@@ -10,7 +10,9 @@ export const myRequests = async () => {
     const session = await auth.api.getSession({ headers: await headers() });
     if (!session) throw new Error("the user is not authenticated");
     await connectToDb();
-    const results = await Blood.find({ userId: session.user.id });
+    const results = await Blood.find({ userId: session.user.id }).sort({
+      createdAt: -1,
+    });
     const myRequests = JSON.parse(JSON.stringify(results));
     return myRequests;
   } catch (error) {
