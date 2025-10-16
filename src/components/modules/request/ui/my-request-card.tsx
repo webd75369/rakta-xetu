@@ -3,6 +3,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import { IBlood } from "../../../../../types/schema";
+import { Check } from "lucide-react";
 
 interface MyRequestCardProps {
   request: IBlood;
@@ -16,8 +17,9 @@ export function MyRequestCard({ request, onClick }: MyRequestCardProps) {
       className="p-3 border rounded-lg bg-sidebar flex justify-between items-center w-full cursor-pointer"
     >
       <div className="flex flex-col items-start justify-center gap-0.5">
-        <p className="text-neutral-600 text-sm font-light">
-          {request.age} year old {request.gender}
+        <p className="text-neutral-600 text-sm font-light flex justify-center items-center gap-x-2">
+          {request.age} year old {request.gender}{" "}
+          {!request.isAccepted && <Check className="text-lime-500" size={14} />}
         </p>
         <p className="text-neutral-600 text-sm font-light">
           {request.units} Unit Blood
