@@ -1,6 +1,8 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { useState } from "react";
+import { MyRequestCard } from "./ui/my-request-card";
+import { MyRequestDialog } from "./ui/my-request-dialog";
 import { IBlood } from "../../../../types/schema";
 
 interface Props {
@@ -8,7 +10,10 @@ interface Props {
 }
 
 export function MyRequestsList({ requests }: Props) {
-  if (requests.length === 0) {
+  const [selected, setSelected] = useState<IBlood | null>(null);
+  const [open, setOpen] = useState(false);
+
+  if (!requests || requests.length === 0) {
     return (
       <div className="my-4">
         <p className="text-rose-500 font-light">
@@ -22,39 +27,25 @@ export function MyRequestsList({ requests }: Props) {
     <div className="my-4 w-full">
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 justify-center items-center">
         {requests.map((request: IBlood) => (
-          <div
+          <MyRequestCard
             key={request._id?.toString()}
-            className="p-4 rounded-lg bg-sidebar flex justify-between items-center w-full"
-          >
-            <div className="flex flex-col items-start justify-center gap-0.5">
-              <p className="text-neutral-600 text-sm font-light">
-                {request.age} year old {request.gender}
-              </p>
-              <p className="text-neutral-600 text-sm font-light">
-                {request.units} Unit Blood
-              </p>
-              <p className="text-xs text-neutral-500 font-light max-w-[160px] truncate">
-                {request.location}
-              </p>
-            </div>
-            <div className="flex flex-col justify-between items-end gap-y-4">
-              <p className="text-rose-500 font-light text-sm">
-                {request.bloodGroup}
-              </p>
-              <div
-                className={cn(
-                  "p-1 rounded text-xs font-light",
-                  request.isCritical
-                    ? "text-rose-500 bg-rose-100/80"
-                    : "text-amber-400 bg-amber-100/80"
-                )}
-              >
-                {request.isCritical ? "Critical" : "Not Critical"}
-              </div>
-            </div>
-          </div>
+            request={request}
+            onClick={() => {
+              setSelected(request);
+              setOpen(true);
+            }}
+          />
         ))}
       </div>
+
+      {selected && (
+        <MyRequestDialog
+          request={selected}
+          open={open}
+          setOpen={setOpen}
+          onOpenChange={(val: boolean) => setOpen(val)}
+        />
+      )}
     </div>
   );
 }

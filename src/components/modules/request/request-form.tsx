@@ -49,7 +49,6 @@ const formSchema = z.object({
 });
 
 export function RequestForm() {
-  const queryClient = useQueryClient();
   const router = useRouter();
   const form = useForm<any>({
     resolver: zodResolver(formSchema),
@@ -90,9 +89,6 @@ export function RequestForm() {
     onSuccess: () => {
       form.reset();
       toast.success("Blood request submitted successfully");
-      queryClient.invalidateQueries({
-        queryKey: ["my-requests"],
-      });
       router.push("/request-blood/my-requests");
     },
     onError: (error) => {
