@@ -10,7 +10,9 @@ export const fetchRequests = async () => {
     const session = await auth.api.getSession({ headers: await headers() });
     if (!session) throw new Error("failed to fetch requests");
     await connectToDb();
-    const result = await Blood.find({ $ne: { userId: session.user.id } }).sort({
+    const result = await Blood.find({
+      userId: { $ne: session.user.id },
+    }).sort({
       createdAt: -1,
     });
     const requests = JSON.parse(JSON.stringify(result));

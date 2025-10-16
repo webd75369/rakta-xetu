@@ -1,8 +1,11 @@
+import { RequestsList } from "@/components/modules/request/requests-list";
 import { Button } from "@/components/ui/button";
+import { fetchRequests } from "@/server/request/fetch-requests";
 import { Droplet, User } from "lucide-react";
 import Link from "next/link";
 
-export default function RequestBlood() {
+export default async function RequestBlood() {
+  const requests = await fetchRequests();
   return (
     <div>
       <p className="text-neutral-500 text-2xl font-light">All Blood Requests</p>
@@ -26,6 +29,7 @@ export default function RequestBlood() {
           </Link>
         </Button>
       </div>
+      <RequestsList requests={requests} />
     </div>
   );
 }
