@@ -1,6 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+} from "@/components/ui/dropdown-menu";
 import { MyRequestCard } from "./ui/my-request-card";
 import { MyRequestDialog } from "./ui/my-request-dialog";
 import { IBlood } from "../../../../types/schema";
@@ -12,31 +19,125 @@ interface Props {
 export function MyRequestsList({ requests }: Props) {
   const [selected, setSelected] = useState<IBlood | null>(null);
   const [open, setOpen] = useState(false);
+  const [isAcceptedFilter, setIsAcceptedFilter] = useState<boolean | null>(
+    null
+  );
+  const [isCriticalFilter, setIsCriticalFilter] = useState<boolean | null>(
+    null
+  );
 
-  if (!requests || requests.length === 0) {
-    return (
-      <div className="my-4">
-        <p className="text-rose-500 font-light">
-          You have not made any request
-        </p>
-      </div>
-    );
-  }
+  const filtered = requests.filter((r) => {
+    if (
+      typeof isAcceptedFilter === "boolean" &&
+      r.isAccepted !== isAcceptedFilter
+    )
+      return false;
+    if (
+      typeof isCriticalFilter === "boolean" &&
+      r.isCritical !== isCriticalFilter
+    )
+      return false;
+    return true;
+  });
 
   return (
     <div className="my-4 w-full">
-      <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 justify-center items-center">
-        {requests.map((request: IBlood) => (
-          <MyRequestCard
-            key={request._id?.toString()}
-            request={request}
-            onClick={() => {
-              setSelected(request);
-              setOpen(true);
-            }}
-          />
-        ))}
+      <div className="flex gap-4 items-center mb-4">
+        <div className="flex items-center gap-2">
+          <label className="text-sm text-neutral-500 font-light">
+            Accepted:
+          </label>
+          <DropdownMenu>
+            <DropdownMenuTrigger className="border rounded px-2 py-1 text-sm text-neutral-500 font-light">
+              {typeof isAcceptedFilter === "boolean"
+                ? isAcceptedFilter
+                  ? "Accepted"
+                  : "Not accepted"
+                : "All"}
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuRadioGroup
+                value={
+                  typeof isAcceptedFilter === "boolean"
+                    ? isAcceptedFilter
+                      ? "true"
+                      : "false"
+                    : "all"
+                }
+                onValueChange={(val: string) =>
+                  setIsAcceptedFilter(val === "all" ? null : val === "true")
+                }
+              >
+                <DropdownMenuRadioItem value="all">All</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="true">
+                  Accepted
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="false">
+                  Not accepted
+                </DropdownMenuRadioItem>
+              </DropdownMenuRadioGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <label className="text-sm text-neutral-500 font-light">
+            Critical:
+          </label>
+          <DropdownMenu>
+            <DropdownMenuTrigger className="border rounded px-2 py-1 text-sm text-neutral-500 font-light">
+              {typeof isCriticalFilter === "boolean"
+                ? isCriticalFilter
+                  ? "Critical"
+                  : "Not critical"
+                : "All"}
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuRadioGroup
+                value={
+                  typeof isCriticalFilter === "boolean"
+                    ? isCriticalFilter
+                      ? "true"
+                      : "false"
+                    : "all"
+                }
+                onValueChange={(val: string) =>
+                  setIsCriticalFilter(val === "all" ? null : val === "true")
+                }
+              >
+                <DropdownMenuRadioItem value="all">All</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="true">
+                  Critical
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="false">
+                  Not critical
+                </DropdownMenuRadioItem>
+              </DropdownMenuRadioGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
+
+      {filtered.length === 0 ? (
+        <div className="my-4">
+          <p className="text-rose-500 font-light">
+            You have not made any request
+          </p>
+        </div>
+      ) : (
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 justify-center items-center">
+          {filtered.map((request: IBlood) => (
+            <MyRequestCard
+              key={request._id?.toString()}
+              request={request}
+              onClick={() => {
+                setSelected(request);
+                setOpen(true);
+              }}
+            />
+          ))}
+        </div>
+      )}
 
       {selected && (
         <MyRequestDialog
