@@ -19,7 +19,7 @@ export function MyRequestCard({ request, onClick }: MyRequestCardProps) {
       <div className="flex flex-col items-start justify-center gap-0.5">
         <p className="text-neutral-600 text-sm font-light flex justify-center items-center gap-x-2">
           {request.age} year old {request.gender}{" "}
-          {!request.isAccepted && <Check className="text-lime-500" size={14} />}
+          {request.isAccepted && <Check className="text-lime-500" size={14} />}
         </p>
         <p className="text-neutral-600 text-sm font-light">
           {request.units} Unit Blood
