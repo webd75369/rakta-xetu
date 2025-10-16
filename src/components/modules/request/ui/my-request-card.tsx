@@ -13,7 +13,7 @@ export function MyRequestCard({ request, onClick }: MyRequestCardProps) {
   return (
     <div
       onClick={onClick}
-      className="p-4 rounded-lg bg-sidebar flex justify-between items-center w-full cursor-pointer"
+      className="p-3 border rounded-lg bg-sidebar flex justify-between items-center w-full cursor-pointer"
     >
       <div className="flex flex-col items-start justify-center gap-0.5">
         <p className="text-neutral-600 text-sm font-light">
