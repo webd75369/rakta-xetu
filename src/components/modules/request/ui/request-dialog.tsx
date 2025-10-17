@@ -21,6 +21,9 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useMutation } from "@tanstack/react-query";
+import { acceptRequest } from "@/server/request/accept-request";
+import { toast } from "sonner";
 
 interface RequestDialogProps {
   request: IBlood;
@@ -36,6 +39,25 @@ export function RequestDialog({
   setOpen,
 }: RequestDialogProps) {
   if (!request) return null;
+
+  const mutation = useMutation({
+    mutationKey: ["accept-request"],
+    mutationFn: async () => {
+      const response = await acceptRequest(
+        request.patientName,
+        request._id?.toString()!
+      );
+      return response;
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error("Failed to accept request");
+    },
+    onSuccess: () => {
+      toast.success("Accepted Request");
+      setOpen(false);
+    },
+  });
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -85,14 +107,16 @@ export function RequestDialog({
               <MessageSquarePlus />
             </Link>
           </Button>
-          <Button
-            className="flex justify-center items-center gap-x-2"
-            variant="tertiary"
-            onClick={() => {}}
-          >
-            Accept
-            <CircleCheck />
-          </Button>
+          {request.isAccepted === false && (
+            <Button
+              className="flex justify-center items-center gap-x-2"
+              variant="tertiary"
+              onClick={() => {}}
+            >
+              Accept
+              <CircleCheck />
+            </Button>
+          )}
         </DialogFooter>
       </DialogContent>
     </Dialog>
