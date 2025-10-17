@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -14,7 +14,7 @@ import { IBlood } from "../../../../types/schema";
 import { Button } from "@/components/ui/button";
 
 interface Props {
-  requests: IBlood[];
+  requests: Promise<IBlood[]>;
   initialIsAccepted?: boolean | null;
   initialIsCritical?: boolean | null;
 }
@@ -32,8 +32,8 @@ export function RequestsList({
   const [isCriticalFilter, setIsCriticalFilter] = useState<boolean | null>(
     initialIsCritical
   );
-
-  const filtered = requests.filter((r) => {
+  const requestsList = use(requests);
+  const filtered = requestsList.filter((r) => {
     if (
       typeof isAcceptedFilter === "boolean" &&
       r.isAccepted !== isAcceptedFilter
