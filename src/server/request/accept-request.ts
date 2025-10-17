@@ -26,7 +26,6 @@ export const acceptRequest = async (
       {
         _id: requestId,
         isAccepted: false,
-        acceptedBy: { $ne: session.user.id },
       },
       {
         $set: { isAccepted: true, acceptedBy: session.user.id },
