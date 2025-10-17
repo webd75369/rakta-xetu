@@ -14,8 +14,8 @@ export const acceptRequest = inngest.createFunction(
       subject: "Someone's ready to help — your blood request is accepted",
       react: AcceptRequest({
         donor: event.data.donor,
-        email: event.data.email,
-        image: event.data.image,
+        email: event.data.donorEmail,
+        image: event.data.donorImage,
       }),
     });
     return data;
