@@ -10,7 +10,7 @@ export const acceptRequest = inngest.createFunction(
   async ({ event }) => {
     const { data } = await resend.emails.send({
       from: `RaktaXetu <${process.env.SMTP_DOMAIN!}>`,
-      to: [event.data.donor],
+      to: [event.data.requestorEmail],
       subject: "Someone's ready to help — your blood request is accepted",
       react: AcceptRequest({
         donor: event.data.donor,
