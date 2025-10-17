@@ -1,19 +1,19 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, use } from "react";
 import { DonorDialog } from "./ui/donor-dialog";
 import { DonorCard } from "./ui/donor-card";
 import { IDonor } from "../../../../types/schema";
 import { useSearchDonors } from "@/store/search-donors";
 import { Button } from "@/components/ui/button";
 
-export function DonorsList({ donors }: { donors: IDonor[] }) {
+export function DonorsList({ donors }: { donors: Promise<IDonor[]> }) {
   const { searchDonor } = useSearchDonors();
   const [selectedDonor, setSelectedDonor] = useState<IDonor | null>(null);
   const [open, setOpen] = useState(false);
   const limit = 10;
-
-  const donorsSafe = donors ?? [];
+  const donorsList = use(donors)
+  const donorsSafe = donorsList ?? [];
   if (donorsSafe.length === 0) {
     return <p className="text-red-500 font-light">No donors are present</p>;
   }
