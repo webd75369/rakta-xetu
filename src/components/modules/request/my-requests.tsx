@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -39,6 +39,12 @@ export function MyRequestsList({ requests }: Props) {
       return false;
     return true;
   });
+
+  const [visibleCount, setVisibleCount] = useState(10);
+
+  useEffect(() => {
+    setVisibleCount(10);
+  }, [isAcceptedFilter, isCriticalFilter, requests]);
 
   return (
     <div className="my-4 w-full">
@@ -145,18 +151,39 @@ export function MyRequestsList({ requests }: Props) {
           <p className="text-rose-500 font-light">No requests found</p>
         </div>
       ) : (
-        <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 justify-center items-center">
-          {filtered.map((request: IBlood) => (
-            <MyRequestCard
-              key={request._id?.toString()}
-              request={request}
-              onClick={() => {
-                setSelected(request);
-                setOpen(true);
-              }}
-            />
-          ))}
-        </div>
+        <>
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 justify-center items-center">
+            {filtered.slice(0, visibleCount).map((request: IBlood) => (
+              <MyRequestCard
+                key={request._id?.toString()}
+                request={request}
+                onClick={() => {
+                  setSelected(request);
+                  setOpen(true);
+                }}
+              />
+            ))}
+          </div>
+
+          {visibleCount < filtered.length && (
+            <div className="flex justify-center mt-4">
+              <button
+                className={
+                  "px-4 py-2 rounded bg-primary text-white " +
+                  (visibleCount >= filtered.length
+                    ? "opacity-50 cursor-not-allowed"
+                    : "")
+                }
+                onClick={() =>
+                  setVisibleCount((v) => Math.min(v + 10, filtered.length))
+                }
+                disabled={visibleCount >= filtered.length}
+              >
+                Load more
+              </button>
+            </div>
+          )}
+        </>
       )}
 
       {selected && (
