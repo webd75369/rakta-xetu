@@ -11,6 +11,7 @@ import {
 import { RequestCard } from "./ui/request-card";
 import { RequestDialog } from "./ui/request-dialog";
 import { IBlood } from "../../../../types/schema";
+import { Button } from "@/components/ui/button";
 
 interface Props {
   requests: IBlood[];
@@ -169,23 +170,18 @@ export function RequestsList({
               />
             ))}
           </div>
-
           {visibleCount < filtered.length && (
-            <div className="flex justify-center mt-4">
-              <button
-                className={
-                  "px-4 py-2 rounded bg-primary text-white " +
-                  (visibleCount >= filtered.length
-                    ? "opacity-50 cursor-not-allowed"
-                    : "")
-                }
+            <div className="flex justify-center items-center my-4">
+              <Button
+                variant="outline"
+                size="sm"
+                disabled={visibleCount >= filtered.length}
                 onClick={() =>
                   setVisibleCount((v) => Math.min(v + 10, filtered.length))
                 }
-                disabled={visibleCount >= filtered.length}
               >
-                Load more
-              </button>
+                Load More
+              </Button>
             </div>
           )}
         </>

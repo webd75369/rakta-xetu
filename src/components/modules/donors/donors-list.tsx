@@ -57,11 +57,11 @@ export function DonorsList({ donors }: { donors: IDonor[] }) {
           />
         ))}
       </div>
-
       {filteredDonors.length > limit && (
         <div className="flex justify-center items-center gap-2 mt-4">
           <Button
             variant="outline"
+            size="sm"
             onClick={() =>
               setVisibleCount((v) => Math.min(v + limit, filteredDonors.length))
             }
@@ -71,7 +71,6 @@ export function DonorsList({ donors }: { donors: IDonor[] }) {
           </Button>
         </div>
       )}
-
       {selectedDonor && (
         <DonorDialog
           donor={selectedDonor}

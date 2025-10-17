@@ -165,10 +165,11 @@ export function MyRequestsList({ requests }: Props) {
               />
             ))}
           </div>
-
           {visibleCount < filtered.length && (
             <div className="flex justify-center items-center my-4">
               <Button
+                variant="outline"
+                size="sm"
                 disabled={visibleCount >= filtered.length}
                 onClick={() =>
                   setVisibleCount((v) => Math.min(v + 10, filtered.length))
@@ -180,7 +181,6 @@ export function MyRequestsList({ requests }: Props) {
           )}
         </>
       )}
-
       {selected && (
         <MyRequestDialog
           request={selected}
