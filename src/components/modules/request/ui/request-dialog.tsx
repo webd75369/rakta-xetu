@@ -14,6 +14,7 @@ import {
   CalendarCheck,
   CircleCheck,
   Droplet,
+  Loader,
   MapPin,
   MessageSquarePlus,
   Phone,
@@ -44,7 +45,7 @@ export function RequestDialog({
     mutationKey: ["accept-request"],
     mutationFn: async () => {
       const response = await acceptRequest(
-        request.patientName,
+        request.patientEmail!,
         request._id?.toString()!
       );
       return response;
@@ -111,10 +112,11 @@ export function RequestDialog({
             <Button
               className="flex justify-center items-center gap-x-2"
               variant="tertiary"
-              onClick={() => {}}
+              onClick={() => mutation.mutate()}
+              disabled={mutation.isPending}
             >
-              Accept
-              <CircleCheck />
+              {mutation.isPending ? "Accepting...": "Accept"}
+              {mutation.isPending ? <Loader className="animate-spin" /> : <CircleCheck />}
             </Button>
           )}
         </DialogFooter>
