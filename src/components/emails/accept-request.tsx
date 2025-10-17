@@ -18,7 +18,7 @@ interface Props {
   email: string;
 }
 
-export function SendRequest({ donor, ctaUrl, email, image }: Props) {
+export function AcceptRequest({ donor, ctaUrl, email, image }: Props) {
   const name = donor.name;
   const details = [
     { label: "Name", value: donor.name },
