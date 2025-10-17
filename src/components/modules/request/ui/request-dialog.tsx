@@ -25,6 +25,7 @@ import Link from "next/link";
 import { useMutation } from "@tanstack/react-query";
 import { acceptRequest } from "@/server/request/accept-request";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface RequestDialogProps {
   request: IBlood;
@@ -40,7 +41,7 @@ export function RequestDialog({
   setOpen,
 }: RequestDialogProps) {
   if (!request) return null;
-
+  const router = useRouter();
   const mutation = useMutation({
     mutationKey: ["accept-request"],
     mutationFn: async () => {
@@ -57,6 +58,7 @@ export function RequestDialog({
     onSuccess: () => {
       toast.success("Accepted Request");
       setOpen(false);
+      router.refresh();
     },
   });
 
