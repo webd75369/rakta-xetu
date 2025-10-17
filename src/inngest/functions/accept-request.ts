@@ -5,8 +5,8 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
 export const acceptRequest = inngest.createFunction(
-  { id: "send-request" },
-  { event: "send/request" },
+  { id: "accept-request" },
+  { event: "accept/request" },
   async ({ event }) => {
     const { data } = await resend.emails.send({
       from: `RaktaXetu <${process.env.SMTP_DOMAIN!}>`,
