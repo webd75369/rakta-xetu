@@ -70,6 +70,9 @@ export function RequestDialog({
             <MapPin size={16} className="text-rose-500" />
             <div>Location: {request.location}</div>
           </div>
+          <div className="text-sm text-neutral-500 font-light">
+            Notes: {request.notes}
+          </div>
         </div>
 
         <DialogFooter>
