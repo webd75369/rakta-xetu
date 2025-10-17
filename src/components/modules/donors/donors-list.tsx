@@ -11,7 +11,6 @@ export function DonorsList({ donors }: { donors: IDonor[] }) {
   const { searchDonor } = useSearchDonors();
   const [selectedDonor, setSelectedDonor] = useState<IDonor | null>(null);
   const [open, setOpen] = useState(false);
-  const [page, setPage] = useState(1);
   const limit = 10;
 
   const donorsSafe = donors ?? [];
@@ -32,15 +31,15 @@ export function DonorsList({ donors }: { donors: IDonor[] }) {
     [donorsSafe, searchDonor]
   );
 
-  const totalPages = Math.max(1, Math.ceil(filteredDonors.length / limit));
+  const [visibleCount, setVisibleCount] = useState(limit);
 
   useEffect(() => {
-    setPage((p) => Math.min(Math.max(1, p), totalPages));
-  }, [totalPages]);
+    setVisibleCount(limit);
+  }, [searchDonor, donorsSafe]);
 
   const paginatedDonors = useMemo(
-    () => filteredDonors.slice((page - 1) * limit, page * limit),
-    [filteredDonors, page]
+    () => filteredDonors.slice(0, visibleCount),
+    [filteredDonors, visibleCount]
   );
 
   useEffect(() => {
@@ -59,24 +58,16 @@ export function DonorsList({ donors }: { donors: IDonor[] }) {
         ))}
       </div>
 
-      {totalPages > 1 && (
+      {filteredDonors.length > limit && (
         <div className="flex justify-center items-center gap-2 mt-4">
           <Button
             variant="outline"
-            onClick={() => setPage((p) => Math.max(1, p - 1))}
-            disabled={page === 1}
+            onClick={() =>
+              setVisibleCount((v) => Math.min(v + limit, filteredDonors.length))
+            }
+            disabled={visibleCount >= filteredDonors.length}
           >
-            Previous
-          </Button>
-          <span className="text-neutral-500 font-light text-sm">
-            Page {page} of {totalPages}
-          </span>
-          <Button
-            variant="outline"
-            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-            disabled={page === totalPages}
-          >
-            Next
+            Load more
           </Button>
         </div>
       )}
