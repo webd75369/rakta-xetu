@@ -11,8 +11,13 @@ export const requestBlood = async (request: IBlood) => {
     const session = await auth.api.getSession({ headers: await headers() });
     if (!session) throw new Error("the user is not authenticated");
     await connectToDb();
-    const result = await Blood.create({ ...request, userId: session.user.id });
+    const result = await Blood.create({
+      ...request,
+      userId: session.user.id,
+      patientEmail: session.user.email,
+    });
     return {
+      success: true,
       requestId: result._id.toString(),
     };
   } catch (error) {

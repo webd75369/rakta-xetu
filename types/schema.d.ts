@@ -16,6 +16,7 @@ interface IProfile {
 interface IBlood {
   _id?: mongoose.Types.ObjectId;
   bloodGroup: string;
+  patientEmail: string;
   patientName: string;
   gender: string;
   phoneNumber: string;
