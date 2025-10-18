@@ -1,18 +1,7 @@
-import { withHydrationOverlay } from "@builder.io/react-hydration-overlay/next";
+import type { NextConfig } from "next";
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  images: {
-    remotePatterns: []
-  }
+const nextConfig: NextConfig = {
+  /* config options here */
 };
 
-export default withHydrationOverlay({
-  appRootSelector: "main",
-})(nextConfig);
+export default nextConfig;
