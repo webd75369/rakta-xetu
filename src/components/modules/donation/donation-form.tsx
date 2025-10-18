@@ -73,10 +73,10 @@ export function DonationForm() {
         });
         if (res?.ok) {
           toast.success("Thank you — donation verified!");
-          router.push("/profile");
+          router.push("/");
         } else {
           toast.error("Payment verification failed. Please contact support");
-          router.push("/profile/complaint");
+          router.push("/complaint");
         }
       },
       modal: {},
