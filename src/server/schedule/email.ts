@@ -5,6 +5,7 @@ export const sendEmail = async (
   hospitalName: string,
   startTime: Date,
   calendarLink: string | null | undefined,
+  name: string,
   email: string,
   userId: string,
   googleEventId: string
@@ -13,6 +14,7 @@ export const sendEmail = async (
     await inngest.send({
       name: "confirmation/email",
       data: {
+        name,
         email,
         hospitalName,
         startTime,

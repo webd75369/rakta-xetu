@@ -55,6 +55,7 @@ export const saveEvent = async (hospitalName: string, donationTime: any) => {
       hospitalName,
       schedule.startAt,
       calendarLink,
+      session.user.name,
       session.user.email,
       session.user.id,
       schedule.googleEventId
