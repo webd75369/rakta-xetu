@@ -4,6 +4,9 @@ import { Spinner } from "@/components/spinner";
 import { fetchDonors } from "@/server/donors/fetch-donors";
 import { Suspense } from "react";
 
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+
 export default function FindDonors() {
   const donors = fetchDonors();
   return (

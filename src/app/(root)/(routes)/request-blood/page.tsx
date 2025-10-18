@@ -6,6 +6,9 @@ import { Droplet, User } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+
 export default function RequestBlood() {
   const requests = fetchRequests();
   return (

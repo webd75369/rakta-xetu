@@ -3,6 +3,9 @@ import { Spinner } from "@/components/spinner";
 import { myRequests } from "@/server/request/my-requests";
 import { Suspense } from "react";
 
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+
 export default function MyRequests() {
   const result = myRequests();
   return (
