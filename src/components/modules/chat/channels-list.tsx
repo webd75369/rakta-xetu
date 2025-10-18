@@ -43,12 +43,17 @@ const CustomChannelPreview = (props: ChannelPreviewUIComponentProps) => {
 
   const handleClick = () => {
     const members = Object.values(channel.state.members);
-    const otherMember = members.find(
-      (member) => member.user_id !== currentUserId
-    );
+    const otherMember = members.find((member: any) => {
+      const memberUserId =
+        (member as any).user_id ?? (member as any).user?.id ?? (member as any).user?.user_id;
+      return typeof memberUserId === "string" && memberUserId !== currentUserId;
+    });
 
-    if (otherMember) {
-      router.push(`/chat/${otherMember.user_id}`);
+    const otherMemberUserId =
+      (otherMember as any)?.user_id ?? (otherMember as any)?.user?.id ?? (otherMember as any)?.user?.user_id;
+
+    if (otherMemberUserId) {
+      router.push(`/chat/${otherMemberUserId}`);
     }
   };
 
