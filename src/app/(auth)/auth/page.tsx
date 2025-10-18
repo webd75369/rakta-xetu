@@ -47,7 +47,7 @@ export default function AuthPage() {
               </a>
             ))}
           </div>
-          <div className="my-2 flex justify-center items-center text-neutral-500 font-light">
+          <div className="my-2 flex justify-center items-center text-neutral-400 font-extralight text-sm">
             <p className="text-center">
               Contact us at{" "}
               <a href="mailto:raktaxetu@gmail.com" className="underline">
