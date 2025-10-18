@@ -1,14 +1,24 @@
 import { DonorsList } from "@/components/modules/donors/donors-list";
 import { SearchBar } from "@/components/modules/donors/search-bar";
+import { Spinner } from "@/components/spinner";
 import { fetchDonors } from "@/server/donors/fetch-donors";
+import { Suspense } from "react";
 
-export default async function FindDonors() {
-  const donors = await fetchDonors();
+export default function FindDonors() {
+  const donors = fetchDonors();
   return (
     <div>
       <p className="text-neutral-500 text-2xl font-light">Find Donors</p>
       <SearchBar />
-      <DonorsList donors={donors} />
+      <Suspense
+        fallback={
+          <div className="flex justify-center items-center my-6">
+            <Spinner />
+          </div>
+        }
+      >
+        <DonorsList donors={donors} />
+      </Suspense>
     </div>
   );
 }

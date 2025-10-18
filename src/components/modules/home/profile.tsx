@@ -6,7 +6,6 @@ import initials from "initials";
 import { AlertTriangle } from "lucide-react";
 import { headers } from "next/headers";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { ChartComponent } from "../stats/chart";
 import { DonationStatus } from "../profile/donation-status";
 

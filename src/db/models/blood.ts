@@ -3,6 +3,15 @@ import { IBlood } from "../../../types/schema";
 
 const BloodSchema = new Schema<IBlood>(
   {
+    bloodGroup: {
+      type: String,
+      enum: ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"],
+      required: true,
+    },
+    patientEmail: {
+      type: String,
+      required: [true, "patient email is required"],
+    },
     patientName: {
       type: String,
       required: [true, "Patient name is required"],
