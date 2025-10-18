@@ -140,11 +140,10 @@ export default function PrivacyPolicy() {
         <p className="font-normal text-neutral-600">10. Contact Us</p>
         <p>
           For any privacy-related questions or complaints, please contact us at
-          <span className="font-normal">
+          <span className="font-normal underline">
             {" "}
-            [insert contact email or address]
+            <a href="mailto:raktaxetu@gmail.com">raktaxetu@gmail.com</a>
           </span>
-          .
         </p>
       </div>
     </div>
