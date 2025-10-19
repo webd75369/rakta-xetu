@@ -18,7 +18,7 @@ export default function RootLayout({ children }: Children) {
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <link rel="icon" href="/logo.svg" />
+        <link rel="icon" href="/logo.jpg" />
       </head>
       <body className={inter.className}>
         <QueryProvider>
