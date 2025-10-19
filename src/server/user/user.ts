@@ -50,7 +50,7 @@ export const listUsers = async () => {
     await connectToDb();
     const result = await db
       .collection("user")
-      .find({ _id: { $ne: new ObjectId(session.user.id) } })
+      .find({ _id: { $ne: new ObjectId(session.user.id) }, isUser: true })
       .sort({ createdAt: -1 })
       .toArray();
     const users = JSON.parse(JSON.stringify(result));
